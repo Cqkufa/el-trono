@@ -708,7 +708,7 @@ async function flush(){if(local||ro){dirty=false;return}saving=true;
   while(dirty){dirty=false;try{await db.doc('players/'+uid).set(clone(me))}catch(e){onErr(e);break}}saving=false}
 function onErr(e){if(e&&e.code==='invalid_argument'){if(!ro){ro=true;toast('Tu acceso es de solo lectura: pedile al dueño permiso de Colaborador para guardar.');render()}}
   else if(e&&e.code==='quota_exceeded')toast('La base de datos está llena. Borren actividad vieja.');
-  else toast('No se pudo guardar. Revisá la conexión y probá de nuevo.')}
+  else toast(navigator.onLine?'No se pudo guardar. Probá de nuevo en un ratito.':'Sin conexión: no se pudo guardar. Probá cuando vuelva internet.')}
 const W={
  feed:d=>local?st.feed.unshift({id:'l'+Math.random().toString(36).slice(2),...d}):db.collection('feed').add(d),
  react:(id,k,v)=>{if(local){const f=st.feed.find(x=>x.id===id);f.r=f.r||{};f.r[k]=f.r[k]||{};f.r[k][uid]=v;return}return db.doc('feed/'+id).update({r:{[k]:{[uid]:v}}})},
