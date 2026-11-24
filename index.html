@@ -7,8 +7,8 @@
 <meta name="theme-color" content="#1a1310" media="(prefers-color-scheme: dark)">
 <meta name="description" content="El juego de bolsillo para competir con tus amigos por la corona del baño.">
 <link rel="manifest" href="./manifest.webmanifest">
-<link rel="icon" type="image/png" sizes="32x32" href="./icons/favicon-32.png">
-<link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="./icons/favicon-32.png?v=3">
+<link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png?v=3">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Trono">
@@ -30,10 +30,13 @@
 --mute:light-dark(#937864,#b39a86);--line:light-dark(#f0e0cb,#3a2c25);--choc:light-dark(#6b3f25,#f5c98a);
 --yel:#ffd257;--yel2:#e9a90f;--mint:#8fe0c2;--mint2:light-dark(#e3f8ef,#1c302a);--lav:#c3aefc;--lav2:light-dark(#f1ecff,#272240);--pink:#ff9fb1;
 --sh:0 1px 2px light-dark(rgb(90 50 20/.06),rgb(0 0 0/.3)),0 10px 24px -14px light-dark(rgb(90 50 20/.28),rgb(0 0 0/.6));
---r:20px;--g:12px;--px:16px}
+--r:20px;--g:12px;--px:20px}
 :root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
 *{box-sizing:border-box;min-width:0}
-html,body{margin:0}
+html,body{margin:0;height:100%;overflow:hidden;overscroll-behavior:none}
+html{scrollbar-width:none}::-webkit-scrollbar{display:none;width:0;height:0}
+#screen{height:100%;height:100dvh;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none;overscroll-behavior-y:contain}
+#phone{height:100%}
 body{background:var(--bg);color:var(--ink);font:15px/1.5 Nunito,system-ui,sans-serif;overflow-x:clip;-webkit-tap-highlight-color:transparent;-webkit-font-smoothing:antialiased}
 h1,h2,h3,.f{font-family:Fredoka,Nunito,sans-serif;font-weight:600;line-height:1.15;margin:0;text-wrap:balance}
 h1{font-size:24px}h2{font-size:18px}h3{font-size:15px}
@@ -41,6 +44,7 @@ p{margin:0}
 button,input{font:inherit;color:inherit}
 button{cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;line-height:1.2;text-align:center;vertical-align:middle;margin:0}
 :focus-visible{outline:2px solid var(--lav);outline-offset:2px}
+[hidden]{display:none!important}
 .mute{color:var(--mute)}
 #app{max-width:480px;margin:0 auto;min-height:100dvh;padding:calc(env(safe-area-inset-top) + 60px) var(--px) calc(env(safe-area-inset-bottom) + 92px)}
 .top{position:fixed;top:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;z-index:30;display:flex;gap:6px;align-items:center;padding:calc(env(safe-area-inset-top) + 10px) var(--px) 8px;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px)}
@@ -271,6 +275,9 @@ td{padding:8px 6px;border-top:1px solid var(--line);text-align:right;white-space
 #sheet.closing .panel{animation:down .26s cubic-bezier(.4,0,.8,.4) forwards}
 .panel{--px:18px;position:relative;width:100%;max-width:480px;max-height:90dvh;overflow:auto;background:var(--card);border-radius:24px 24px 0 0;padding:20px var(--px) calc(env(safe-area-inset-bottom) + 20px);animation:up .34s cubic-bezier(.22,.9,.3,1)}
 .panel>h2{padding-right:44px}
+.grab{position:absolute;top:0;left:0;right:0;height:22px;cursor:grab;touch-action:none}
+.grab::before{content:"";position:absolute;top:8px;left:50%;width:40px;height:5px;margin-left:-20px;border-radius:3px;background:var(--line)}
+.panel.dragging{animation:none!important;transition:none!important}
 .panel.tall{height:88dvh}
 .x{position:absolute;right:14px;top:14px;width:36px;height:36px;border-radius:50%;border:0;background:var(--bg2);font-size:20px;line-height:1}
 .lab{display:block;font-weight:800;font-size:13px;margin:18px 0 8px}
@@ -351,7 +358,7 @@ input:focus{border-color:var(--lav);outline:0}
 <header class="top" id="top" hidden></header>
 <div id="screen"><main id="app"><div class="load"><div><div class="c" id="lc"></div><h2>Preparando el trono…</h2></div></div></main></div>
 <nav id="nav" hidden aria-label="Secciones"></nav>
-<div id="sheet" hidden><button class="scrim" data-a="close" aria-label="Cerrar"></button><div class="panel" role="dialog" aria-modal="true"><button class="x" data-a="close" aria-label="Cerrar">×</button><div class="inner" id="sheetin"></div></div></div>
+<div id="sheet" hidden><button class="scrim" data-a="close" aria-label="Cerrar"></button><div class="panel" role="dialog" aria-modal="true"><div class="grab" aria-hidden="true"></div><button class="x" data-a="close" aria-label="Cerrar">×</button><div class="inner" id="sheetin"></div></div></div>
 <div id="toasts" aria-live="polite"></div>
 <div id="fx"></div>
 </div>
@@ -789,7 +796,7 @@ function vHome(){const L=lvl(me.xp),t=me.today,g=grp();
   </div></details>
   <button class="season" data-a="tab" data-v="rank">${ICON.crown}<div><b>Temporada de ${monthName(mKey())}</b><small>Termina en ${daysLeft()} ${daysLeft()===1?'día':'días'}</small></div></button>`}
 function installCard(where){if(isStandalone()||ui.installed||(!deferredPrompt&&!isIOS))return '';if(where==='home'&&ui.hideInstall)return '';
-  return `<div class="inst"><img src="./icons/apple-touch-icon.png" alt=""><div><b>Instalar El Trono</b><small>Con su ícono en tu pantalla de inicio</small></div><button class="btn y s" data-a="${deferredPrompt?'install':'iosinstall'}">Instalar</button>${where==='home'?'<button class="xs" data-a="hideinstall" aria-label="Ocultar">×</button>':''}</div>`}
+  return `<div class="inst"><img src="./icons/apple-touch-icon.png?v=3" alt=""><div><b>Instalar El Trono</b><small>Con su ícono en tu pantalla de inicio</small></div><button class="btn y s" data-a="${deferredPrompt?'install':'iosinstall'}">Instalar</button>${where==='home'?'<button class="xs" data-a="hideinstall" aria-label="Ocultar">×</button>':''}</div>`}
 function banner(){return local?`<div class="banner"><b>Modo demo:</b> esta vista no está conectada a la base compartida, así que nada se guarda. Abrí el link de El Trono con tu cuenta para jugar en serio.</div>`
   :ro?`<div class="banner"><b>Solo lectura:</b> podés mirar, pero para guardar necesitás acceso de Colaborador o Editor.</div>`
   :st.err?`<div class="banner">${E(st.err)}</div>`:''}
@@ -891,8 +898,9 @@ async function doAuth(){const em=$('#aemail').value.trim(),pw=$('#apass').value,
   catch(e){er.textContent=authMsg(e.message||'');bt.disabled=false;bt.textContent=ui.authMode==='up'?'Crear cuenta':'Entrar'}}
 
 /* ---------- hojas ---------- */
-function openSheet(h,tall){const sh=$('#sheet');$('.panel').classList.toggle('tall',!!tall);sh.classList.remove('closing');$('#sheetin').innerHTML=h;sh.hidden=false;const f=$('#sheetin input');if(f)setTimeout(()=>f.focus(),250)}
-function closeSheet(){const sh=$('#sheet');if(sh.hidden||sh.classList.contains('closing'))return;ui.sheet='';if(matchMedia('(prefers-reduced-motion: reduce)').matches){sh.hidden=true;return}sh.classList.add('closing');setTimeout(()=>{sh.hidden=true;sh.classList.remove('closing')},250)}
+function openSheet(h,tall){const sh=$('#sheet');{const pn=$('.panel'),sc=$('.scrim');pn.style.transition=pn.style.transform='';sc.style.transition=sc.style.opacity=''}$('.panel').classList.toggle('tall',!!tall);sh.classList.remove('closing');$('#sheetin').innerHTML=h;sh.hidden=false;const f=$('#sheetin input');if(f)setTimeout(()=>f.focus(),250)}
+function closeSheet(){const sh=$('#sheet');if(sh.hidden||sh.classList.contains('closing'))return;ui.sheet='';const pn=$('.panel');
+  if(pn.style.transform){const sc=$('.scrim');pn.style.transition='transform .22s cubic-bezier(.4,0,.8,.4)';pn.style.transform='translateY(100%)';sc.style.transition='opacity .22s';sc.style.opacity='0';setTimeout(()=>{sh.hidden=true;pn.style.transition=pn.style.transform='';sc.style.transition=sc.style.opacity=''},230);return}if(matchMedia('(prefers-reduced-motion: reduce)').matches){sh.hidden=true;return}sh.classList.add('closing');setTimeout(()=>{sh.hidden=true;sh.classList.remove('closing')},250)}
 function sheetVisit(){ui.vf={dur:'',type:'',rate:0};ui.sheet='visit';
   const ch=(g,l)=>`<div class="chips" data-g="${g}">${l.map(v=>`<button data-a="vchip" data-g="${g}" data-v="${v}" aria-pressed="false">${v}</button>`).join('')}</div>`;
   openSheet(`<h2>Nueva visita</h2><p class="mute" style="margin-top:4px">Todo es opcional.</p>
@@ -929,7 +937,7 @@ function openChest(){if(me.chest===dKey()){closeSheet();return}ensureDay();me.ch
   save()}
 function sheetIOS(){ui.sheet='ios';const share=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M6 11H5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-1"/></svg>`,plus=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M12 8v8M8 12h8"/></svg>`;
   openSheet(`<h2>Instalar en iPhone</h2><p class="mute" style="margin-top:4px">Desde Safari, en tres toques:</p>
-  <div class="steps"><div><i>1</i>${share}<span>Tocá <b>Compartir</b> en la barra de Safari</span></div><div><i>2</i>${plus}<span>Elegí <b>Agregar a pantalla de inicio</b></span></div><div><i>3</i><img src="./icons/apple-touch-icon.png" alt="" style="width:26px;height:26px;border-radius:6px"><span>Tocá <b>Agregar</b> y abrí El Trono desde su ícono</span></div></div>
+  <div class="steps"><div><i>1</i>${share}<span>Tocá <b>Compartir</b> en la barra de Safari</span></div><div><i>2</i>${plus}<span>Elegí <b>Agregar a pantalla de inicio</b></span></div><div><i>3</i><img src="./icons/apple-touch-icon.png?v=3" alt="" style="width:26px;height:26px;border-radius:6px"><span>Tocá <b>Agregar</b> y abrí El Trono desde su ícono</span></div></div>
   <p class="hint">Si estás en otro navegador, abrí este link en Safari.</p><button class="big alt" style="margin-top:20px" data-a="close">Entendido</button>`)}
 function sheetGroup(mode){ui.sheet='group';
   if(mode==='create')openSheet(`<h2>Crear grupo</h2><label class="lab" for="gname">Nombre del grupo</label><input id="gname" maxlength="24" placeholder="Ej: Los del Trono"><button class="big alt" style="margin-top:24px" data-a="gcreatego">Crear</button>`);
@@ -995,6 +1003,19 @@ document.addEventListener('input',e=>{if(e.target.id==='chatin')ui.draft=e.targe
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#sheet').hidden)closeSheet();
   if(e.key==='Enter'&&e.target.tagName==='INPUT'){const m={gname:'gcreatego',gcode:'gjoingo',cname:'rename',vdesc:'vsave',chatin:'send'}[e.target.id];if(m){e.preventDefault();A[m]({})}}});
 
+/* pop-ups: arrastrar hacia abajo para cerrar */
+let sd=null;
+const sdStart=(y,p,fromGrab)=>{if($('#sheet').hidden)return;if(!fromGrab&&p.scrollTop>0)return;sd={p,y,dy:0,t:Date.now(),active:false,grab:fromGrab}};
+const sdMove=(y,e)=>{if(!sd)return;const dy=y-sd.y;if(!sd.active){if(dy>6&&(sd.grab||sd.p.scrollTop<=0)){sd.active=true;sd.p.classList.add('dragging')}else if(dy<-4){sd=null;return}else return}
+  if(e.cancelable)e.preventDefault();sd.dy=Math.max(0,dy);sd.p.style.transform=`translateY(${sd.dy}px)`;$('.scrim').style.opacity=String(Math.max(.15,1-sd.dy/450))};
+const sdEnd=()=>{if(!sd)return;const {p,dy,t,active}=sd;sd=null;if(!active)return;p.classList.remove('dragging');const v=dy/Math.max(1,Date.now()-t);
+  if(dy>110||(v>.5&&dy>30))closeSheet();else{const sc=$('.scrim');p.style.transition='transform .25s cubic-bezier(.2,.8,.2,1)';p.style.transform='';sc.style.transition='opacity .25s';sc.style.opacity='';setTimeout(()=>{p.style.transition='';sc.style.transition=''},260)}};
+document.addEventListener('touchstart',e=>{const p=e.target.closest('.panel');if(!p||e.target.closest('.chipsx,input,textarea'))return;sdStart(e.touches[0].clientY,p,!!e.target.closest('.grab'))},{passive:true});
+document.addEventListener('touchmove',e=>{if(sd)sdMove(e.touches[0].clientY,e)},{passive:false});
+document.addEventListener('touchend',sdEnd);document.addEventListener('touchcancel',sdEnd);
+document.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse'||!e.target.closest('.grab'))return;sdStart(e.clientY,e.target.closest('.panel'),true)});
+document.addEventListener('pointermove',e=>{if(sd&&e.pointerType==='mouse')sdMove(e.clientY,e)});
+document.addEventListener('pointerup',e=>{if(e.pointerType==='mouse')sdEnd()});
 /* conserva la posición de los sliders al redibujar */
 function keepChips(root,fn){const xs=[...root.querySelectorAll('.chipsx')].map(c=>c.scrollLeft);fn();root.querySelectorAll('.chipsx').forEach((c,i)=>{if(xs[i]!=null)c.scrollLeft=xs[i];const on=c.querySelector('[aria-pressed=true]');if(on){const a=on.offsetLeft,b=a+on.offsetWidth;if(a<c.scrollLeft||b>c.scrollLeft+c.clientWidth)c.scrollLeft=Math.max(0,a-40)}})}
 /* sliders: arrastrar con mouse, rueda vertical a horizontal */
