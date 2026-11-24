@@ -16,6 +16,7 @@
 <meta name="application-name" content="El Trono">
 <meta name="format-detection" content="telephone=no">
 <title>El Trono</title>
+<script>try{var t=localStorage.getItem('trono.theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@500;700;800;900&display=swap" rel="stylesheet">
@@ -415,6 +416,9 @@ function demoData(now=Date.now()){
 /*/DEMO*/
 
 const $=s=>document.querySelector(s);
+const viewerTheme=document.documentElement.dataset.theme;
+function applyTheme(t){const r=document.documentElement;if(t==='light'||t==='dark')r.dataset.theme=t;else if(viewerTheme)r.dataset.theme=viewerTheme;else delete r.dataset.theme;
+  const ms=[...document.querySelectorAll('meta[name=theme-color]')];if(t==='light'||t==='dark')ms.forEach(m=>m.setAttribute('content',t==='dark'?'#1a1310':'#fff7ec'));else ms.forEach(m=>m.setAttribute('content',/dark/.test(m.media||'')?'#1a1310':'#fff7ec'))}
 const E=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const clone=o=>JSON.parse(JSON.stringify(o));
 const MES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
@@ -678,7 +682,7 @@ const AI=Object.fromEntries(ACH.map(a=>[a.id,a]));
 
 /* ---------- estado ---------- */
 const st={players:{},groups:{},feed:[],chat:[],seasons:{},visits:[],ready:false,err:''};
-const ui={tab:'home',rank:'w',shop:'hat',closet:'skin',mis:'d',ftab:'nov',open:{},draft:'',onb:{skin:'choco',eyes:'normal',mouth:'sonrisa'},say:SAYS[0],vf:{},fin:{}};
+const ui={theme:(()=>{try{return localStorage.getItem('trono.theme')||'auto'}catch(e){return 'auto'}})(),tab:'home',rank:'w',shop:'hat',closet:'skin',mis:'d',ftab:'nov',open:{},draft:'',onb:{skin:'choco',eyes:'normal',mouth:'sonrisa'},say:SAYS[0],vf:{},fin:{}};
 let db=null,uid=null,local=false,me=null,ro=false,saving=false,dirty=false;
 const P=id=>id===uid?me:st.players[id];
 const pname=id=>(P(id)&&P(id).name)||'Alguien';
@@ -866,6 +870,7 @@ function vMe(){const L=lvl(me.xp),g=grp(),owned=IT.filter(i=>has(i.id));
    <div style="margin:8px 0">${members().map(p=>`<span class="tag">${E(p.name)}</span>`).join('')}</div>`:'<p class="mute">No estás en ningún grupo.</p>'}
    ${Object.keys(me.groups).length>1?`<label class="lab">Cambiar de grupo</label><div class="chips">${Object.keys(me.groups).map(c=>`<button data-a="gswitch" data-v="${E(c)}" aria-pressed="${me.cur===c}">${E((st.groups[c]||{}).name||c)}</button>`).join('')}</div>`:''}
    <div class="row" style="margin-top:12px;flex-wrap:wrap"><button class="btn y" data-a="gcreate">Crear grupo</button><button class="btn" data-a="gjoin">Unirme con código</button>${g?`<button class="btn" data-a="gleave" data-v="${E(g.code)}">Salir</button>`:''}</div></div></details>
+  <details class="acc" data-k="theme" ${op("theme",false)}><summary><h2>Apariencia</h2><span class="meta">${{auto:'Automático',light:'Claro',dark:'Noche'}[ui.theme]||'Automático'}</span></summary><div class="body"><div class="tabs" style="margin:0">${[['auto','Automático'],['light','Claro'],['dark','Noche']].map(([k,n])=>`<button data-a="theme" data-v="${k}" aria-pressed="${ui.theme===k}">${n}</button>`).join('')}</div><p class="mute" style="font-size:13px;margin-top:8px">Automático sigue el modo de tu celular.</p></div></details>
   <details class="acc" data-k="vis" ${op("vis",false)}><summary><h2>Privacidad</h2><span class="meta">${{all:"Todo",ach:"Solo logros",none:"Nada"}[me.vis]}</span></summary><div class="body">${[['all','Todo','Visitas, compras, niveles y logros.'],['ach','Solo logros y compras','Tus visitas no se publican.'],['none','Nada','Seguís apareciendo en el ranking.']].map(([v,n,d])=>`<label class="vis"><input type="radio" name="vis" data-a="vis" data-v="${v}" ${me.vis===v?'checked':''}><span><b>${n}</b><br><span class="mute" style="font-size:14px">${d}</span></span></label>`).join('')}</div></details>
   <details class="acc" data-k="items" ${op("items",false)}><summary><h2>Objetos</h2><span class="meta">${owned.length}/${IT.length}</span></summary><div class="body">${Object.entries(CATS).map(([c,n])=>{const o=owned.filter(i=>catOf(i)===c&&i.p>0);return o.length?`<p style="margin:6px 0"><b>${n}:</b> ${o.map(i=>E(i.n)).join(', ')}</p>`:''}).join('')}</div></details>
   <details class="acc" data-k="hist" ${op("hist",false)}><summary><h2>Historial de visitas</h2><span class="meta">${me.visits||""}</span></summary><div class="body">${st.visits.length?st.visits.slice(0,25).map(v=>`<div class="hist"><div style="flex:1"><b>${E(v.type||'Visita')}</b>${v.dur?` · ${E(v.dur)}`:''}${v.rate?` · ${'★'.repeat(Math.min(5,v.rate|0))}`:''}${v.desc?`<div class="mute" style="font-style:italic">${E(v.desc)}</div>`:''}</div><span class="time" style="white-space:nowrap">${ago(v.ts)}${v.xp?` · +${v.xp} XP`:''}</span></div>`).join(''):'<p class="mute">Todavía no registraste visitas.</p>'}</div></details>
@@ -988,6 +993,7 @@ const A={
  gswitch:d=>{me.cur=d.v;save()},gleave:d=>leaveGroup(d.v),
  copy:async d=>{try{await navigator.clipboard.writeText(d.v);toast('Código copiado')}catch(e){toast('Copialo a mano: '+d.v)}},
  vis:d=>{me.vis=d.v;save();toast('Privacidad actualizada')},
+ theme:d=>{ui.theme=d.v;try{d.v==='auto'?localStorage.removeItem('trono.theme'):localStorage.setItem('trono.theme',d.v)}catch(e){}applyTheme(d.v);render()},
  install:async()=>{if(!deferredPrompt)return;deferredPrompt.prompt();const r=await deferredPrompt.userChoice.catch(()=>null);deferredPrompt=null;if(r&&r.outcome==='accepted')ui.installed=1;render()},
  iosinstall:sheetIOS,hideinstall:()=>{ui.hideInstall=1;try{localStorage.setItem('trono.hideInstall',String(Date.now()))}catch(e){}render()},
  update:()=>{if(ui.waiting)ui.waiting.postMessage({type:'SKIP_WAITING'})},
@@ -1028,6 +1034,7 @@ document.addEventListener('wheel',e=>{const c=e.target.closest('.chipsx');if(!c|
 const fades=()=>document.querySelectorAll('.chipsx').forEach(c=>c.classList.toggle('end',c.scrollLeft+c.clientWidth>=c.scrollWidth-4));
 document.addEventListener('scroll',e=>{if(e.target.classList&&e.target.classList.contains('chipsx'))fades()},true);
 new MutationObserver(()=>requestAnimationFrame(fades)).observe(document.body,{childList:true,subtree:true});
+applyTheme(ui.theme);
 /* ---------- arranque ---------- */
 function boot(){if(me){ensureDay();checkIn();checkAch();save();seasonCheck();prune()}render()}
 function startLocal(){if(local||st.ready)return;local=true;uid='yo';const d=demoData();d.players.forEach(p=>st.players[p.uid]=p);st.groups.PIBES1=d.group;st.seasons['PIBES1_'+d.season.k]=d.season;st.feed=d.feed;st.chat=d.chat;st.ready=true;render()}
