@@ -3,7 +3,7 @@
    - Nunca guarda datos de Supabase: rankings, actividad y chat siempre vienen frescos de la red.
    - Sin conexión, la navegación muestra offline.html.
    - Las versiones nuevas esperan hasta que la persona toca "Actualizar". */
-const VERSION = 'trono-v4';
+const VERSION = 'trono-v5';
 const SHELL = ['./', './index.html', './offline.html', './manifest.webmanifest', './vendor/supabase.js',
   './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png', './icons/favicon-32.png'];
 

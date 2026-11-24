@@ -16,7 +16,7 @@
 <meta name="application-name" content="El Trono">
 <meta name="format-detection" content="telephone=no">
 <title>El Trono</title>
-<script>try{var t=localStorage.getItem('trono.theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
+<script>try{var t=localStorage.getItem('trono.theme');if(t==='light'||t==='dark'){document.documentElement.dataset.theme=t;document.querySelectorAll('meta[name=theme-color]').forEach(function(m){if(m.media)m.dataset.media=m.media;m.removeAttribute('media');m.setAttribute('content',t==='dark'?'#1a1310':'#fff7ec')})}}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@500;700;800;900&display=swap" rel="stylesheet">
@@ -418,7 +418,7 @@ function demoData(now=Date.now()){
 const $=s=>document.querySelector(s);
 const viewerTheme=document.documentElement.dataset.theme;
 function applyTheme(t){const r=document.documentElement;if(t==='light'||t==='dark')r.dataset.theme=t;else if(viewerTheme)r.dataset.theme=viewerTheme;else delete r.dataset.theme;
-  const ms=[...document.querySelectorAll('meta[name=theme-color]')];if(t==='light'||t==='dark')ms.forEach(m=>m.setAttribute('content',t==='dark'?'#1a1310':'#fff7ec'));else ms.forEach(m=>m.setAttribute('content',/dark/.test(m.media||'')?'#1a1310':'#fff7ec'))}
+  document.querySelectorAll('meta[name=theme-color]').forEach(m=>{if(m.media&&!m.dataset.media)m.dataset.media=m.media;if(t==='light'||t==='dark'){m.removeAttribute('media');m.setAttribute('content',t==='dark'?'#1a1310':'#fff7ec')}else{if(m.dataset.media)m.setAttribute('media',m.dataset.media);m.setAttribute('content',/dark/.test(m.dataset.media||'')?'#1a1310':'#fff7ec')}})}
 const E=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const clone=o=>JSON.parse(JSON.stringify(o));
 const MES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
