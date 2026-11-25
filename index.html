@@ -1615,7 +1615,7 @@ function makeDB(sb){const L={};const ping=col=>{(L[col]||new Set()).forEach(f=>f
   return {doc,collection,refreshAll}}
 let sessionStarted=false;
 /* ---------- notificaciones push ---------- */
-const VAPID_PUB='BC1yDZ5PH-0yMOgW3MAacraa1bqSFCOdQzsLhJcHtJi1t00KRm0hJNz9xZerbH0hQuD-gXqUZy6FT5metr3VZgQ',PUSH_READY=false;
+const VAPID_PUB='BC1yDZ5PH-0yMOgW3MAacraa1bqSFCOdQzsLhJcHtJi1t00KRm0hJNz9xZerbH0hQuD-gXqUZy6FT5metr3VZgQ',PUSH_READY=true;
 window.PUSH=PUSH_READY;
 const b64u=s=>{const p='='.repeat((4-s.length%4)%4),b=atob((s+p).replace(/-/g,'+').replace(/_/g,'/'));return Uint8Array.from([...b].map(c=>c.charCodeAt(0)))};
 async function pushState(){try{if(!('serviceWorker' in navigator)||!('PushManager' in window)||!('Notification' in window))return isIOS?'ios':'na';
