@@ -3,7 +3,7 @@
    - Nunca guarda datos de Supabase: rankings, actividad y chat siempre vienen frescos de la red.
    - Sin conexión, la navegación muestra offline.html.
    - Las versiones nuevas esperan hasta que la persona toca "Actualizar". */
-const VERSION = 'trono-v10';
+const VERSION = 'trono-v11';
 const SHELL = ['./', './index.html', './offline.html', './manifest.webmanifest', './vendor/supabase.js',
   './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png', './icons/favicon-32.png'];
 
@@ -63,4 +63,21 @@ self.addEventListener('fetch', e => {
       return res;
     })());
   }
+});
+
+// Notificaciones push: muestran el aviso y al tocarlo abren la app.
+self.addEventListener('push', e => {
+  let d = {};
+  try { d = e.data ? e.data.json() : {}; } catch (_) { d = { body: e.data ? e.data.text() : '' }; }
+  e.waitUntil(self.registration.showNotification(d.title || 'El Trono', {
+    body: d.body || '', icon: './icons/icon-192.png', tag: d.tag || undefined, data: { url: d.url || './' }
+  }));
+});
+self.addEventListener('notificationclick', e => {
+  e.notification.close();
+  e.waitUntil((async () => {
+    const all = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
+    for (const c of all) if ('focus' in c) return c.focus();
+    return self.clients.openWindow((e.notification.data && e.notification.data.url) || './');
+  })());
 });

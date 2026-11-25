@@ -351,6 +351,41 @@ input:focus{border-color:var(--lav);outline:0}
  .panel{max-height:88%}.panel.tall{height:88%}
 }
 @media (max-width:1000px) and (min-width:760px){.desk{display:none}}
+
+/* camino, duelos, regalos, resumen, colecciones */
+.roadc{display:flex;align-items:center;gap:12px;width:100%;border:0;text-align:left;background:linear-gradient(120deg,#fff3c4,#ffe08a);color:#3a2316;border-radius:var(--r);padding:12px 12px 12px 16px;margin:0 0 var(--g);box-shadow:var(--sh)}
+.roadc .rtx{flex:1;min-width:0}.roadc b{display:block;font-size:16px}.roadc small{display:block;font-size:13px;opacity:.75;margin-top:1px}
+.rbar{height:8px;border-radius:99px;background:rgb(255 255 255/.7);margin-top:8px;overflow:hidden}.rbar i{display:block;height:100%;background:#e9a90f;border-radius:99px}
+.roadc .rprev{width:64px;flex:none}.roadc .rprev .prev{background:rgb(255 255 255/.6);border-radius:16px;margin:0}
+.road{position:relative;padding-left:4px}
+.road::before{content:"";position:absolute;left:21px;top:20px;bottom:20px;width:4px;border-radius:4px;background:var(--line)}
+.rstop{position:relative;display:flex;align-items:center;gap:12px;padding:6px 0}
+.rnum{position:relative;z-index:1;width:38px;height:38px;flex:none;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:13px;background:var(--bg2);color:var(--mute);border:3px solid var(--card)}
+.rstop.got .rnum{background:var(--yel);color:#3a2316}
+.rstop.next .rnum{background:var(--choc);color:var(--card)}
+.rit{width:70px;flex:none;border:0;padding:0;background:none}.rit .prev{margin:0;border-radius:16px}
+.rstop:not(.got) .rit .prev{filter:grayscale(.85);opacity:.55}.rstop.next .rit .prev{filter:none;opacity:1}
+.rinfo{flex:1;min-width:0}.rinfo b{display:block;font-size:15px}.rinfo small{display:block;font-size:12.5px;color:var(--mute)}
+.unl{text-align:center;padding:6px 4px}.unl .prev{width:180px;margin:0 auto 10px}.unl .big{margin-top:16px}
+.duels .dh,.wsum .dh{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}
+.dinv,.dres{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-top:1px solid var(--line);font-size:14px}
+.dinv .row{gap:6px;flex-wrap:nowrap}
+.dres.won{color:#2f8f57}.dres.lost{color:var(--mute)}
+.x2{border:0;background:var(--bg2);color:var(--mute);width:28px;height:28px;border-radius:50%;flex:none;font-size:16px;line-height:1;padding:0}
+.drow{padding:10px 0;border-top:1px solid var(--line)}
+.dvs{display:flex;justify-content:space-between;font-size:14px}.dvs b{font-size:17px}
+.dbar{height:10px;border-radius:99px;background:var(--pink);margin:6px 0 4px;overflow:hidden}.dbar i{display:block;height:100%;background:var(--mint)}
+.drow small{font-size:12px}
+.bets{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.bets .btn{display:inline-flex;align-items:center;justify-content:center;gap:4px}.bets .ic{width:18px;height:18px}
+.pbtns{display:flex;gap:8px;justify-content:center;margin-top:14px}
+.plist .lrow{width:100%}
+.cit span{display:block;font-size:12px;font-weight:700;line-height:1.2}.cit small{display:inline-flex;align-items:center;gap:2px;font-size:11px;font-weight:800}.cit small .ic{width:13px;height:13px}
+.wgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px}
+.wgrid>div{background:var(--bg2);border-radius:14px;padding:10px;text-align:center}.wgrid b{display:block;font-size:22px;font-weight:900}.wgrid span{font-size:12px;color:var(--mute)}
+.wline{margin:10px 0 0;font-size:14px}
+.setrow{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line)}.setrow:first-child{border-top:0}
+.setrow .tx{flex:1;min-width:0}.setrow b{display:block}.setrow small{display:block;font-size:12.5px;color:var(--mute)}
+.setrow .rew{display:inline-flex;align-items:center;gap:3px;font-weight:800;font-size:13px;color:var(--mute)}.setrow .rew .ic{width:15px;height:15px}
 </style>
 </head>
 <body>
@@ -430,7 +465,7 @@ const SAYS=['¡Hoy es un gran día para brillar!','Me siento liviano como una pl
 
 /* ---------- catálogo ---------- */
 const SK={choco:['#b27c54','#7a4a2c','#4a2a17'],cara:['#f2c48f','#c98a4e','#8a5326'],crema:['#fff6e3','#efd6aa','#b38f5c'],menta:['#e2fff3','#8fe0c2','#3f9e7e'],lavanda:['#f3edff','#c3aefc','#7c62cf'],oro:['#fff6b8','#f2c230','#a87808'],galaxia:['#9b8cff','#3b2a8a','#140c3a'],arcoiris:['#ffb3c1','#ffe27a','#8a6fd6']};
-const CATS={skin:'Color',face:'Cara',hat:'Sombreros',glasses:'Anteojos',neck:'Cuello',cloth:'Ropa',acc:'Accesorios',room:'Ambiente',fx:'Efectos'};
+const CATS={skin:'Color',face:'Cara',hat:'Sombreros',glasses:'Anteojos',neck:'Cuello',cloth:'Ropa',acc:'Accesorios',seat:'Tronos',room:'Ambiente',fx:'Efectos'};
 const IT=[
  ['choco','skin','Chocolate',0],['cara','skin','Caramelo',0],['crema','skin','Vainilla',0],['menta','skin','Menta',90],['lavanda','skin','Lavanda',90],['arcoiris','skin','Arcoíris',260,5],['galaxia','skin','Galaxia',320,6],['oro','skin','Oro macizo',450,8],
  ['normal','eyes','Clásicos',0],['puntitos','eyes','Puntitos',0],['grandes','eyes','Ojazos',0],['brillosos','eyes','Brillosos',0],['felices','eyes','Felices',0],['cancheros','eyes','Cancheros',0],['desconfiados','eyes','Desconfiados',0],['dormidos','eyes','Dormidos',0],['guino','eyes','Guiño',0],['enamorados','eyes','Enamorados',0],['estrellados','eyes','Estrellados',0],['mareados','eyes','Mareados',0],['tristes','eyes','Tristes',0],['enojados','eyes','Enojados',0],['llorones','eyes','Llorones',0],['knock','eyes','Knock out',0],['plata','eyes','Signo peso',0],
@@ -441,14 +476,14 @@ const IT=[
  ['flor','acc','Flor',40],['auris','acc','Auriculares',130],['chupete','acc','Chupete',60],['cigarro','acc','Cigarro',80],
  ['panuelo','neck','Pañuelo',0],['corbata','neck','Corbata',60],['corbatin','neck','Moño corbatín',70],['babero','neck','Babero',45],['bufanda','neck','Bufanda',90],['collar','neck','Collar de perlas',150],['hawaiana','neck','Collar hawaiano',110],['cadena','neck','Cadena de oro',280,6],
  ['tutu','cloth','Tutú',120],['delantal','cloth','Delantal de jardinero',80],['saco','cloth','Saco elegante',170],['kilt','cloth','Pollera escocesa',140],['flotador','cloth','Flotador',90],['cinturon','cloth','Cinturón de campeón',320,5],['remera','cloth','Camiseta argentina',120],['remcoral','cloth','Remera coral',60],['remmenta','cloth','Remera menta',60],['remlavanda','cloth','Remera lavanda',60],['remceleste','cloth','Remera celeste',60],['remamarilla','cloth','Remera amarilla',60],['remnegra','cloth','Remera negra',70],['remplaneta','cloth','Remera con planeta',90],['remtiedye','cloth','Remera tie-dye',90],['bata','cloth','Bata a lunares',100],['buzo','cloth','Buzo',120],['overol','cloth','Overol',130],['jean','cloth','Campera de jean',140],['inflable','cloth','Campera inflable',150],['fiesta','cloth','Vestido retro a lunares',170],['princesa','cloth','Vestido de princesa',200,3],['motoquera','cloth','Campera motoquera',240,4],['capa','cloth','Capa real',200,3],['smoking','cloth','Smoking blanco',220,3],['buzouni','cloth','Buzo universitario',140],['buzocanguro','cloth','Buzo canguro',130],['overolmostaza','cloth','Overol mostaza',140],['racing','cloth','Campera racing rosa',260,4],['delcuadros','cloth','Delantal a cuadros',90],['donut','cloth','Flotador donut',110],['jeanclara','cloth','Campera de jean clara',160],['inflablelila','cloth','Campera inflable lila',170],['princesahielo','cloth','Princesa del hielo',220,3],['princesagala','cloth','Gala dorada',240,3],['capamago','cloth','Capa de mago',220,3],['capavampiro','cloth','Capa de vampiro',230,3],['caparayo','cloth','Capa de rayo',240,4],['capaesmeralda','cloth','Capa esmeralda',240,4],['capasuper','cloth','Capa de superhéroe',240,4],
- ['varita','hold','Varita mágica',150],['cetro','hold','Cetro real',300,5],['sopapa','hold','Sopapa',60],['escobilla','hold','Escobilla',50],['globo','hold','Globo',40],['espada','hold','Espada de goma',120],['baston','hold','Bastón de caramelo',90],['ramo','hold','Ramo de flores',100],['paraguas','hold','Paraguas',110],['guitarra','hold','Guitarra',220,4],
+ ['varita','hold','Varita mágica',150],['cetro','hold','Cetro real',300,5],['sopapa','hold','Sopapa clásica',60],['escobilla','hold','Escobilla clásica',50],['globo','hold','Globo',40],['espada','hold','Espada de goma',120],['baston','hold','Bastón de caramelo',90],['ramo','hold','Ramo de flores',100],['paraguas','hold','Paraguas',110],['guitarra','hold','Guitarra',220,4],
  ['bano','room','Baño menta',0],['jardin','room','Jardín',120],['playa','room','Playa',160],['espacio','room','Estación espacial',260,4],['castillo','room','Salón del trono',380,7],['clasico','room','Baño clásico',0],['jungla','room','Jungla',140],['desierto','room','Desierto',140],['nieve','room','Nieve',160],['fiesta','room','Fiesta',220],['ciudad','room','Terraza de noche',200],['submarino','room','Fondo del mar',240,3],
  ['moscas','fx','Moscas fieles',40],['brillos','fx','Brillitos',120],['aureola','fx','Aureola',180],['aura','fx','Aura mística',220,4],['fuego','fx','En llamas',260,6],['corazones','fx','Corazones',140],['notas','fx','Notas musicales',150],['burbujas','fx','Burbujas',100],['nube','fx','Nube personal',70],
  ['renos','hat','Astas de reno',120,0,0,'navidad'],['elfo','hat','Gorro de elfo',140,0,0,'navidad'],['guirnalda','neck','Guirnalda de luces',110,0,0,'navidad'],['sweater','cloth','Suéter navideño',160,0,0,'navidad'],['sweaterreno','cloth','Suéter con reno',160,0,0,'navidad'],['sweatercopos','cloth','Suéter de copos',160,0,0,'navidad'],['arbolito','room','Living navideño',220,0,0,'navidad'],['nevando','fx','Nevando',150,0,0,'navidad']
 ].map(([id,c,n,p,l=0,x=0,ev=''])=>({id,c,n,p,l,x,ev}));
 const evOn=it=>!it.ev||new Date().getMonth()===11;
 const I=Object.fromEntries(IT.map(i=>[i.id,i]));
-const SLOT=['hat','glasses','acc','neck','cloth','hold','fx'];
+const SLOT=['hat','glasses','acc','neck','cloth','hold','fx','seat'];
 const catOf=it=>it.c==='eyes'||it.c==='mouth'?'face':it.c==='hold'?'acc':it.c;
 
 /* ---------- dibujo del personaje ---------- */
@@ -922,6 +957,71 @@ for(const [c,m] of Object.entries(PICK))for(const [id,ks] of Object.entries(m)){
 const part=(x,k)=>!x?'':typeof x==='string'?(k==='f'?x:''):(x[k]||'');
 const BODYR='M54 181C38 181 27 171 27 156C27 142 37 133 51 132C46 128 43 121 43 114C43 103 53 96 65 96C62 92 61 87 61 82C61 69 79 60 100 60C121 60 139 69 139 82C139 87 138 92 135 96C147 97 157 105 157 115C157 122 155 128 149 132C163 133 173 142 173 156C173 171 162 181 146 181Z';
 const BODYP='M54 181C38 181 27 171 27 156C27 142 37 133 51 132C46 128 43 121 43 114C43 103 53 96 65 96C62 92 61 87 61 82C61 71 71 63 84 62C86 50 91 38 97 25C113 32 123 46 119 62C131 64 139 72 139 82C139 87 138 92 135 96C147 97 157 105 157 115C157 122 155 128 149 132C163 133 173 142 173 156C173 171 162 181 146 181Z';
+/* ---------- camino del trono: premios por visitas ---------- */
+const SEAT={};
+const ROAD=[];
+{
+const G='#ffd257',GD='#a87808',GL='#fff1a8',SP=(x,y,s,d=0)=>`<path class="tw" style="animation-delay:${d}s" transform="translate(${x} ${y}) scale(${s})" d="M0-10L3-3 10 0 3 3 0 10-3 3-10 0-3-3Z" fill="#fff6c2" stroke="#fff" stroke-width="1"/>`;
+// inodoro genérico: f relleno, k borde, l claro, extra en tanque/taza
+const toilet=(f,k,l,tank='',bowl='',lid=f)=>({
+ b:`<rect x="56" y="22" width="88" height="56" rx="12" fill="${f}" stroke="${k}" stroke-width="3"/><rect x="50" y="14" width="100" height="14" rx="7" fill="${lid}" stroke="${k}" stroke-width="3"/><path d="M64 36h14" stroke="${k}" stroke-width="4" stroke-linecap="round"/><path d="M66 50q4-8 12-10" stroke="${l}" stroke-width="4" fill="none" stroke-linecap="round" opacity=".8"/>${tank}<ellipse cx="100" cy="154" rx="66" ry="14" fill="${l}" stroke="${k}" stroke-width="3"/>`,
+ f:`<path d="M34 156Q38 188 74 190H126Q162 188 166 156Q100 176 34 156Z" fill="${f}" stroke="${k}" stroke-width="3" stroke-linejoin="round"/><path d="M80 189h40l-4 10H84Z" fill="${f}" stroke="${k}" stroke-width="3" stroke-linejoin="round"/><path d="M46 166q6 12 22 16" stroke="${l}" stroke-width="4" fill="none" stroke-linecap="round" opacity=".8"/>${bowl}`});
+const throne=(f,k,v,vd,deco='',legs=true)=>({
+ b:`<path d="M38 160V46Q38 28 56 22L100 4 144 22Q162 28 162 46V160Z" fill="${f}" stroke="${k}" stroke-width="3" stroke-linejoin="round"/><path d="M52 156V52Q52 40 64 36L100 22 136 36Q148 40 148 52V156Z" fill="${v}" stroke="${vd}" stroke-width="2.5" stroke-linejoin="round"/><path d="M100 30v120M64 60l36 20 36-20M64 104l36 20 36-20" stroke="${vd}" stroke-width="1.6" opacity=".45" fill="none"/>${deco}<rect x="34" y="146" width="132" height="20" rx="8" fill="${v}" stroke="${vd}" stroke-width="2.5"/>`,
+ f:`<path d="M22 124Q22 114 32 114H46V168H22Z" fill="${f}" stroke="${k}" stroke-width="3" stroke-linejoin="round"/><path d="M178 124Q178 114 168 114H154V168H178Z" fill="${f}" stroke="${k}" stroke-width="3" stroke-linejoin="round"/><circle cx="34" cy="114" r="7" fill="${f}" stroke="${k}" stroke-width="3"/><circle cx="166" cy="114" r="7" fill="${f}" stroke="${k}" stroke-width="3"/><rect x="22" y="164" width="156" height="16" rx="5" fill="${f}" stroke="${k}" stroke-width="3"/>${legs?`<path d="M34 180v12q0 6 6 6h6v-18M166 180v12q0 6-6 6h-6v-18" fill="${f}" stroke="${k}" stroke-width="3" stroke-linejoin="round"/>`:''}`});
+const S={
+ inodoro_oro:toilet(G,GD,GL,`<circle cx="122" cy="44" r="7" fill="#ff4d6d" stroke="#c9184a" stroke-width="2"/>`,SP(150,176,.7)+SP(54,30,.6,.8)),
+ bidet:{b:`<path d="M150 154V104q0-14 14-14h6" stroke="${GD}" stroke-width="9" fill="none" stroke-linecap="round"/><path d="M150 154V104q0-14 14-14h6" stroke="${G}" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="150" cy="120" r="6" fill="${G}" stroke="${GD}" stroke-width="2.5"/><path class="tw" d="M172 92q14 6 14 24" stroke="#7fd1ff" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="3 5"/><ellipse cx="100" cy="154" rx="66" ry="14" fill="#f4f1ec" stroke="#b9b2a6" stroke-width="3"/><ellipse cx="100" cy="154" rx="58" ry="10" fill="none" stroke="${G}" stroke-width="3"/>`,
+  f:`<path d="M34 156Q38 188 74 190H126Q162 188 166 156Q100 176 34 156Z" fill="#fbfaf7" stroke="#b9b2a6" stroke-width="3" stroke-linejoin="round"/><path d="M52 168q20 10 40 2M110 176q22 0 40-12" stroke="#d9d3ca" stroke-width="2" fill="none"/><path d="M40 166Q100 184 160 166" stroke="${G}" stroke-width="4" fill="none"/><path d="M76 189h48l-4 10H80Z" fill="${G}" stroke="${GD}" stroke-width="3" stroke-linejoin="round"/>`},
+ alfombra_real:{flat:1,b:`<ellipse cx="100" cy="184" rx="96" ry="14" fill="#a8232f"/><ellipse cx="100" cy="182" rx="94" ry="13" fill="#c0392b" stroke="${G}" stroke-width="3"/><ellipse cx="100" cy="182" rx="80" ry="9" fill="none" stroke="${G}" stroke-width="2" stroke-dasharray="5 4"/>${[...Array(9)].map((_,i)=>`<path d="M${4+i*2.2} ${176+i*1.4}l-5 2" stroke="${G}" stroke-width="2" stroke-linecap="round"/><path d="M${196-i*2.2} ${176+i*1.4}l5 2" stroke="${G}" stroke-width="2" stroke-linecap="round"/>`).join('')}`,f:''},
+ trono_oro:throne(G,GD,'#c0392b','#8a1f2a',`<circle cx="100" cy="4" r="6" fill="#ff4d6d" stroke="#c9184a" stroke-width="2"/><circle cx="56" cy="24" r="4" fill="#7fd1ff" stroke="#3aa0d8" stroke-width="1.5"/><circle cx="144" cy="24" r="4" fill="#7fd1ff" stroke="#3aa0d8" stroke-width="1.5"/>`),
+ inodoro_diamante:toilet('#d6f3ff','#5fa8dc','#ffffff',`<path d="M70 26l14 50M96 24l-10 52M118 24l16 52M140 30l-22 46" stroke="#fff" stroke-width="2" opacity=".9"/><path d="M100 40l8 8-8 10-8-10Z" fill="#fff" stroke="#5fa8dc" stroke-width="2"/>`,`<path d="M50 164l20 24M90 176l-8 14M120 176l10 14M150 164l-18 24" stroke="#fff" stroke-width="2"/>`+SP(160,150,.8)+SP(44,40,.7,.6)+SP(150,18,.6,1.2),'#eaf9ff'),
+ inodoro_galactico:{b:`<ellipse cx="100" cy="110" rx="96" ry="96" fill="#5fffe0" opacity=".12"/>`+toilet('#3b2a8a','#140c3a','#7a62e0',`<circle cx="76" cy="44" r="2" fill="#fff"/><circle cx="104" cy="60" r="1.6" fill="#fff"/><circle cx="128" cy="38" r="2.2" fill="#fff"/><circle cx="92" cy="34" r="1.2" fill="#fff"/><circle cx="122" cy="62" r="5" fill="#ff9fb1"/><path d="M114 64q8-6 16-2" stroke="#ffd257" stroke-width="2" fill="none"/>`).b+`<ellipse cx="100" cy="154" rx="66" ry="14" fill="none" stroke="#5fffe0" stroke-width="2.5"/>`,
+  f:toilet('#3b2a8a','#140c3a','#7a62e0').f+`<ellipse cx="100" cy="172" rx="92" ry="12" fill="none" stroke="#ffd257" stroke-width="3" transform="rotate(-6 100 172)"/><path d="M84 199q4 -6 8 0M108 199q4-6 8 0" stroke="#ff9f43" stroke-width="3" fill="none"/>`+SP(176,140,.6)+SP(26,60,.6,.7)},
+ trono_flotante:(()=>{const t=throne('#f3edff','#7c62cf','#c3aefc','#8a6fd6',`<circle cx="100" cy="4" r="6" fill="#7fd1ff" stroke="#3aa0d8" stroke-width="2"/>`,false);return {float:1,b:`<ellipse class="pulse" cx="100" cy="194" rx="70" ry="7" fill="#c3aefc" opacity=".55"/>`+t.b,f:t.f+`<path d="M40 182q20 10 40 0t40 0 40 0" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round" opacity=".9"/>`+SP(30,190,.6)+SP(172,188,.7,.8)+SP(16,96,.5,1.4)}})(),
+};
+Object.assign(SEAT,S);
+// en la mano
+Object.assign(HOLD,{
+ ambientador:`<g transform="rotate(14 172 150)"><rect x="160" y="124" width="24" height="54" rx="6" fill="#8fe0c2" stroke="#3f9e7e" stroke-width="2.5"/><rect x="160" y="140" width="24" height="20" fill="#fff"/><path d="M160 140h24M160 160h24" stroke="#3f9e7e" stroke-width="2"/><g transform="translate(172 150)"><circle r="3" fill="#ffd257"/>${[0,72,144,216,288].map(a=>`<ellipse cy="-5" rx="2.6" ry="4" fill="#ff9fb1" transform="rotate(${a})"/>`).join('')}<circle r="2.4" fill="#ffd257"/></g><rect x="164" y="113" width="16" height="12" rx="3" fill="#fff" stroke="#3f9e7e" stroke-width="2.5"/><rect x="168" y="106" width="9" height="8" rx="2" fill="#3f9e7e"/></g><g class="pulse" fill="#ffd9e8" opacity=".9"><circle cx="150" cy="98" r="7"/><circle cx="140" cy="88" r="9"/><circle cx="154" cy="84" r="6"/><circle cx="130" cy="98" r="5"/></g>${SP(126,80,.5)}${SP(160,70,.4,.7)}`,
+ sopapa_real:`<path d="M158 184L177 118" stroke="${GD}" stroke-width="10" stroke-linecap="round"/><path d="M158 184L177 118" stroke="${G}" stroke-width="6" stroke-linecap="round"/><path d="M162 170l6 2M166 156l6 2M170 142l6 2" stroke="${GD}" stroke-width="2"/><circle cx="157" cy="187" r="6" fill="${G}" stroke="${GD}" stroke-width="2.5"/><path d="M160 116Q177 84 198 108Q180 124 160 116Z" fill="#e0566a" stroke="#a8323f" stroke-width="3" stroke-linejoin="round"/><path d="M168 106q8-12 18-10" stroke="#ff9fb1" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M162 116Q180 124 196 110" stroke="${G}" stroke-width="3" fill="none"/>${SP(194,90,.5)}`,
+ escobilla_real:`<path d="M158 184L177 126" stroke="#fff" stroke-width="9" stroke-linecap="round"/><path d="M158 184L177 126" stroke="#d9d3ca" stroke-width="9" stroke-linecap="round" opacity=".35"/><path d="M160 176l7 2.5M164 162l7 2.5M168 148l7 2.5" stroke="${G}" stroke-width="3"/><path d="M154 192l2-10 6 4 6-2-4 10Z" fill="${G}" stroke="${GD}" stroke-width="2" stroke-linejoin="round"/><g transform="translate(181 112) rotate(18)"><ellipse rx="13" ry="16" fill="#c3aefc" stroke="#7c62cf" stroke-width="2.5"/>${[-12,-6,0,6,12].map(y=>`<path d="M-15 ${y}h-4M15 ${y}h4" stroke="#7c62cf" stroke-width="2" stroke-linecap="round"/>`).join('')}<path d="M-5-8q4-4 8-2" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/></g>${SP(196,96,.5,.5)}`,
+});
+// accesorios
+Object.assign(ACC,{
+ papel_oro:`<g transform="translate(150 132)"><rect width="32" height="38" rx="4" fill="${G}" stroke="${GD}" stroke-width="2.5"/><path d="M6 6v26" stroke="${GL}" stroke-width="4" stroke-linecap="round"/><ellipse cx="16" rx="16" ry="5.5" fill="${GL}" stroke="${GD}" stroke-width="2.5"/><ellipse cx="16" rx="5" ry="2" fill="${GD}"/><path d="M12 22l2-6 2 4 2-4 2 6Z" fill="#fff" stroke="${GD}" stroke-width="1.2" stroke-linejoin="round"/><path d="M32 18q12 10 4 24" fill="none" stroke="${GD}" stroke-width="10"/><path d="M32 18q12 10 4 24" fill="none" stroke="${G}" stroke-width="6"/></g>${SP(186,124,.6)}${SP(150,176,.45,.6)}`,
+ papel_infinito:`<path d="M168 150Q190 118 160 100Q120 80 76 104Q40 124 58 150Q76 172 120 160Q160 148 176 176Q186 196 150 198" fill="none" stroke="#d3c2a6" stroke-width="14" stroke-linecap="round"/><path d="M168 150Q190 118 160 100Q120 80 76 104Q40 124 58 150Q76 172 120 160Q160 148 176 176Q186 196 150 198" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" stroke-dasharray="14 2"/><g transform="translate(152 134)"><rect width="30" height="36" rx="4" fill="#fff" stroke="#d3c2a6" stroke-width="2.5"/><ellipse cx="15" rx="15" ry="5" fill="#f6efe3" stroke="#d3c2a6" stroke-width="2.5"/><ellipse cx="15" rx="5" ry="2" fill="#b89a72"/></g><text x="22" y="64" font-size="22" font-weight="900" fill="#c3aefc" stroke="#fff" stroke-width="1">∞</text>`,
+});
+// sombrero
+const poo=(x,y,s)=>`<g transform="translate(${x} ${y}) scale(${s})"><ellipse cy="0" rx="12" ry="6.5" fill="#7a4a2c" stroke="#4a2a17" stroke-width="2"/><ellipse cy="-8" rx="9" ry="5.5" fill="#8a5636" stroke="#4a2a17" stroke-width="2"/><ellipse cy="-15" rx="5.5" ry="4.2" fill="#9a6440" stroke="#4a2a17" stroke-width="2"/><path d="M0-19q1-5 6-5" stroke="#4a2a17" stroke-width="2" fill="none" stroke-linecap="round"/><ellipse cx="-4" cy="-9" rx="2.5" ry="1.5" fill="#c58a5c"/></g>`;
+HAT.corona_soretes=`${poo(72,60,.85)}${poo(128,60,.85)}${poo(100,52,1.05)}<path d="M58 80L60 62Q100 72 140 62L142 80Q100 88 58 80Z" fill="${G}" stroke="${GD}" stroke-width="2.5" stroke-linejoin="round"/><path d="M60 70Q100 79 140 70" stroke="#e9a90f" stroke-width="2.5" fill="none"/><circle cx="100" cy="75" r="4.5" fill="#ff4d6d" stroke="#c9184a" stroke-width="1.5"/><circle cx="76" cy="73" r="3.5" fill="#7fd1ff" stroke="#3aa0d8" stroke-width="1.5"/><circle cx="124" cy="73" r="3.5" fill="#7fd1ff" stroke="#3aa0d8" stroke-width="1.5"/>${SP(150,58,.5)}`;
+// capa
+CL.capa_rey={b:`<path d="M58 96Q4 168 14 190H186Q196 168 142 96Z" fill="#c0392b" stroke="#8a1f2a" stroke-width="3" stroke-linejoin="round"/><path d="M18 178Q100 192 182 178L186 190H14Z" fill="${G}" stroke="${GD}" stroke-width="2"/><path d="M46 138Q30 160 24 178" stroke="#e05a4e" stroke-width="4" fill="none" stroke-linecap="round"/>${[30,60,140,170].map(x=>`<path d="M${x} 184l3-4 3 4-3 3Z" fill="#c0392b"/>`).join('')}`,
+ f:`<path d="M46 126Q100 150 154 126Q160 140 148 150Q100 170 52 150Q40 140 46 126Z" fill="#fff" stroke="#d6d0c4" stroke-width="2.5" stroke-linejoin="round"/>${[[62,140],[80,148],[120,148],[138,140],[100,152]].map(([x,y])=>`<path d="M${x} ${y-3}v6M${x-2} ${y+1}h4" stroke="#1d1b22" stroke-width="2" stroke-linecap="round"/>`).join('')}<g transform="translate(100 156)"><circle r="9" fill="${G}" stroke="${GD}" stroke-width="2.5"/><rect x="-4" y="-5" width="8" height="9" rx="1.5" fill="#fff" stroke="${GD}" stroke-width="1.2"/><ellipse cy="-5" rx="4" ry="1.5" fill="#fff" stroke="${GD}" stroke-width="1.2"/></g>`};
+// auras (back / front)
+const halo=(c)=>`<defs><radialGradient id="rg_${c.slice(1)}"><stop offset="0" stop-color="${c}" stop-opacity=".9"/><stop offset="1" stop-color="${c}" stop-opacity="0"/></radialGradient></defs><ellipse class="pulse" cx="100" cy="112" rx="100" ry="94" fill="url(#rg_${c.slice(1)})"/>`;
+const BIG=(s,fill,extra='')=>`<path d="${BODYP}" transform="translate(100 108) scale(${s}) translate(-100 -108)" fill="${fill}" ${extra}/>`;
+Object.assign(FXX,{
+ aura_burbujas:{b:halo('#7fd1ff'),f:[[22,96,10,0],[34,62,6,.4],[178,72,11,.8],[186,128,7,1.2],[166,36,5,.3],[16,150,6,1],[60,24,4,.6],[140,190,5,1.5],[46,190,4,.9]].map(([x,y,r,d])=>`<g class="tw" style="animation-delay:${d}s"><circle cx="${x}" cy="${y}" r="${r}" fill="#e8f8ff" fill-opacity=".35" stroke="#7fd1ff" stroke-width="2"/><path d="M${x-r*.5} ${y-r*.2}a${r*.55} ${r*.55} 0 0 1 ${r*.45}-${r*.4}" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/></g>`).join('')},
+ aura_fuego:{b:`<g class="pulse">${BIG(1.24,'#ff5a1f','opacity=".85"')}${BIG(1.13,'#ffb02e')}</g>${[[100,-2,1.2],[66,30,.9],[134,30,.9],[34,96,.9],[166,96,.9],[22,150,.8],[178,150,.8]].map(([x,y,s],i)=>`<path class="tw" style="animation-delay:${i*.2}s" transform="translate(${x} ${y}) scale(${s})" d="M0-18C6-8 12-2 10 8C8 14 4 16 0 16C-4 16-8 14-10 8C-12-2-6-8 0-18Z" fill="#ff7a1f"/>`).join('')}`,f:''},
+ aura_electrica:{b:halo('#5ab8ff'),f:[[18,70,0,-12],[176,60,.3,10],[184,138,.6,-8],[14,140,.9,8],[100,2,.45,0]].map(([x,y,d,r])=>`<path class="tw" style="animation-delay:${d}s" transform="translate(${x} ${y}) rotate(${r})" d="M2-16L-8 2h7l-3 14 11-19H0l5-13Z" fill="#fff36b" stroke="#3a8fd8" stroke-width="2" stroke-linejoin="round"/>`).join('')+`<path class="tw" d="M30 110q8-6 4-14t6-14" stroke="#7fd1ff" stroke-width="2.5" fill="none" stroke-linecap="round"/><path class="tw" style="animation-delay:.5s" d="M170 110q-8-6-4-14t-6-14" stroke="#7fd1ff" stroke-width="2.5" fill="none" stroke-linecap="round"/>`},
+ aura_cosmica:{b:`<defs><radialGradient id="rg_cos"><stop offset="0" stop-color="#ff8fc8" stop-opacity=".7"/><stop offset=".55" stop-color="#7a4fc4" stop-opacity=".55"/><stop offset="1" stop-color="#1c1640" stop-opacity="0"/></radialGradient></defs><ellipse class="pulse" cx="100" cy="112" rx="102" ry="96" fill="url(#rg_cos)"/>${[[20,40],[176,30],[30,170],[186,160],[60,14],[150,186],[10,100],[192,96]].map(([x,y],i)=>`<circle class="tw" style="animation-delay:${i*.3}s" cx="${x}" cy="${y}" r="${i%2?1.6:2.4}" fill="#fff"/>`).join('')}<path d="M4 126A96 30 -14 0 1 196 80" fill="none" stroke="#c3aefc" stroke-width="2" stroke-dasharray="4 5" opacity=".9"/>`,
+  f:`<path d="M196 80A96 30 -14 0 1 4 126" fill="none" stroke="#c3aefc" stroke-width="2" stroke-dasharray="4 5" opacity=".9"/><g class="orb"><circle cx="186" cy="88" r="8" fill="#ffd257" stroke="#e9a90f" stroke-width="2"/><ellipse cx="186" cy="88" rx="13" ry="4" fill="none" stroke="#ff9fb1" stroke-width="2" transform="rotate(-20 186 88)"/></g><circle cx="22" cy="120" r="5" fill="#7fd1ff" stroke="#3aa0d8" stroke-width="1.5"/>`},
+ aura_celestial:{b:`<g class="pulse" opacity=".8">${[...Array(16)].map((_,i)=>`<path d="M100 104L${(100+Math.cos(i/16*6.283-.1)*104).toFixed(1)} ${(104+Math.sin(i/16*6.283-.1)*104).toFixed(1)}L${(100+Math.cos(i/16*6.283+.1)*104).toFixed(1)} ${(104+Math.sin(i/16*6.283+.1)*104).toFixed(1)}Z" fill="${i%2?'#fff6c2':'#ffe27a'}"/>`).join('')}</g>${halo('#ffffff')}`,
+  f:`<g fill="#fff" stroke="#e6eef8" stroke-width="2"><circle cx="20" cy="184" r="10"/><circle cx="36" cy="180" r="12"/><circle cx="52" cy="186" r="8"/><circle cx="148" cy="186" r="8"/><circle cx="164" cy="180" r="12"/><circle cx="180" cy="184" r="10"/></g>`+SP(30,40,.7)+SP(170,50,.6,.6)+SP(186,118,.5,1.1)},
+});
+// fondo
+RMX.presidencial=`<rect width="360" height="208" fill="#1f2e5a"/><g stroke="#2c3f72" stroke-width="3">${[...Array(12)].map((_,i)=>`<path d="M${i*32+16} 0V208"/>`).join('')}</g><path d="M0 0h360v14H0Z" fill="${G}"/><rect y="196" width="360" height="12" fill="${G}"/><g transform="translate(180 64)"><circle r="40" fill="${G}" stroke="${GD}" stroke-width="4"/><circle r="31" fill="#1f2e5a"/><circle r="31" fill="none" stroke="${G}" stroke-width="2" stroke-dasharray="3 4"/>${poo(0,12,1.2)}<path d="M-14-14l5 4 9-10 9 10 5-4-3 12h-22Z" fill="${G}" stroke="${GD}" stroke-width="1.5" stroke-linejoin="round"/></g>${[60,300].map(x=>`<g transform="translate(${x} 40)"><path d="M0 0V160" stroke="${G}" stroke-width="5"/><circle r="6" fill="${G}"/><path d="M3 8h46l-8 17 8 17H3Z" fill="#7a4a2c" stroke="#4a2a17" stroke-width="2" stroke-linejoin="round"/><path d="M3 18h40M3 32h40" stroke="${G}" stroke-width="3"/><path d="M14 30l3-8 4 5 4-5 3 8Z" fill="${G}"/></g>`).join('')}<g transform="translate(180 0)"><path d="M0 14V30" stroke="${G}" stroke-width="3"/><path d="M-26 30h52l-8 14h-36Z" fill="${G}" stroke="${GD}" stroke-width="2"/>${[-20,-8,8,20].map(x=>`<path d="M${x} 44v8" stroke="#fff6c2" stroke-width="3" stroke-linecap="round"/>`).join('')}</g><rect y="208" width="360" height="92" fill="#f2efe8"/>${[...Array(12)].map((_,x)=>[...Array(4)].map((_,y)=>(x+y)%2?`<rect x="${x*30}" y="${208+y*23}" width="30" height="23" fill="#2a2a33"/>`:'').join('')).join('')}<path d="M130 208h100l40 92H90Z" fill="#c0392b"/><path d="M130 208h100l40 92H90Z" fill="none" stroke="${G}" stroke-width="4"/>`;
+// skin divina
+SK.dios=['#fffdf3','#ffe9a6','#d9a93a'];
+// lista del camino
+[[3,'ambientador','hold','Ambientador de baño','Objeto'],[5,'sopapa_real','hold','Sopapa','Objeto'],[10,'papel_oro','acc','Papel higiénico dorado','Objeto'],[15,'escobilla_real','hold','Escobilla de baño','Objeto'],[20,'inodoro_oro','seat','Inodoro dorado','Objeto'],[25,'aura_burbujas','fx','Aura de burbujas','Aura'],[30,'bidet','seat','Bidet de lujo','Objeto'],[35,'alfombra_real','seat','Alfombra real','Objeto'],[40,'papel_infinito','acc','Papel higiénico infinito','Objeto'],[45,'aura_fuego','fx','Aura de fuego','Aura'],[50,'trono_oro','seat','Trono de oro','Objeto'],[55,'capa_rey','cloth','Capa del Rey del Baño','Objeto'],[60,'inodoro_diamante','seat','Inodoro de diamante','Objeto'],[65,'aura_electrica','fx','Aura eléctrica','Aura'],[70,'presidencial','room','Baño presidencial','Objeto'],[75,'corona_soretes','hat','Corona de soretes','Objeto'],[80,'aura_cosmica','fx','Aura cósmica','Aura'],[85,'inodoro_galactico','seat','Inodoro intergaláctico','Objeto'],[90,'trono_flotante','seat','Trono flotante','Objeto'],[95,'aura_celestial','fx','Aura celestial','Aura'],[100,'dios','skin','Dios del Trono','Divino']]
+ .forEach(([v,id,c,n,t])=>{const it={id,c,n,p:0,l:0,x:0,ev:'',road:v,t};IT.push(it);I[id]=it;ROAD.push(it)});
+}
+const DIOS_W=`<path d="M48 122Q18 118 6 92Q28 96 38 104Q16 88 12 64Q36 76 48 98Q36 72 40 52Q58 74 58 110Z" fill="#fff" stroke="#e0c27a" stroke-width="2.5" stroke-linejoin="round"/><path d="M46 114Q28 108 20 98M48 104Q34 92 28 80M52 98Q46 82 46 70" stroke="#efe2bd" stroke-width="2" fill="none" stroke-linecap="round"/>`;
+const DIOS_B=`<g class="pulse" opacity=".55">${[...Array(12)].map((_,i)=>{const a=i/12*6.283;return `<path d="M100 110L${(100+Math.cos(a-.07)*100).toFixed(1)} ${(110+Math.sin(a-.07)*100).toFixed(1)}L${(100+Math.cos(a+.07)*100).toFixed(1)} ${(110+Math.sin(a+.07)*100).toFixed(1)}Z" fill="#ffe27a"/>`}).join('')}</g>${DIOS_W}<g transform="translate(200 0) scale(-1 1)">${DIOS_W}</g>`;
+const DIOS_HALO=`<ellipse class="pulse" cx="100" cy="13" rx="26" ry="7" fill="none" stroke="#ffd257" stroke-width="5"/><ellipse cx="100" cy="13" rx="26" ry="7" fill="none" stroke="#fff6c2" stroke-width="1.5"/>`;
+
 function charSVG(p,cls='',ov){
   const eq=(p&&p.eq)||{},sk=SK[eq.skin]?eq.skin:'choco',c=SK[sk],u='g'+(++gid),fk=faceOf(eq),face=[EYES[(ov&&ov.eyes)||fk[0]]||EYES.normal,MOUTH[(ov&&ov.mouth)||fk[1]]||MOUTH.sonrisa],rim=c[2],cl=CL[eq.cloth],nk=NECK[eq.neck];
   const grad=sk==='arcoiris'
@@ -931,6 +1031,7 @@ function charSVG(p,cls='',ov){
   const BP=eq.hat||/^auris/.test(eq.acc||'')?BODYR:BODYP;let body=`<path d="${BP}" ${f} stroke-linejoin="round"/><g fill="${c[0]}" opacity=".55"><ellipse cx="48" cy="148" rx="10" ry="5" transform="rotate(-35 48 148)"/><ellipse cx="62" cy="108" rx="6" ry="3.5" transform="rotate(-35 62 108)"/></g>`;
   if(sk==='galaxia')body+=`<g fill="#fff">${[[60,150,2],[130,160,1.6],[150,140,2.2],[120,118,1.4],[76,124,1.5],[110,82,1.6],[46,158,1.2]].map(([x,y,r])=>`<circle cx="${x}" cy="${y}" r="${r}"/>`).join('')}</g>`;
   if(sk==='oro')body+=SPK(150,132,.6,0)+SPK(70,90,.45,.6);
+  if(sk==='dios')body+=SPK(148,134,.6,0)+SPK(66,98,.5,.6)+SPK(118,162,.45,1.2);
   const fx=eq.fx||'';
   const fxDefs=fx==='aura'?`<radialGradient id="${u}a"><stop offset="0" stop-color="#c3aefc" stop-opacity=".95"/><stop offset="1" stop-color="#c3aefc" stop-opacity="0"/></radialGradient>`:'';
   let back=fx==='aura'?`<ellipse class="pulse" cx="100" cy="115" rx="98" ry="90" fill="url(#${u}a)"/>`
@@ -943,8 +1044,9 @@ function charSVG(p,cls='',ov){
    :fx==='nube'?`<g class="pulse"><g fill="#d6dbe8"><circle cx="82" cy="${eq.hat?6:22}" r="14"/><circle cx="100" cy="${eq.hat?0:16}" r="18"/><circle cx="120" cy="${eq.hat?6:22}" r="14"/></g></g>`+[[84,0],[100,.4],[116,.8]].map(([x,d])=>`<path class="tw" style="animation-delay:${d}s" d="M${x} ${eq.hat?26:42}l-3 9" stroke="#7fd1ff" stroke-width="3" stroke-linecap="round"/>`).join('')
    :fx==='nevando'?[[28,0],[62,1.1],[94,.4],[130,1.6],[164,.8],[182,2.1],[14,1.9],[148,2.6]].map(([x,d])=>`<g transform="translate(${x} ${18+(x*7)%60}) scale(${.8+(x%3)*.15})"><g class="sn" style="animation-delay:${d}s"><path d="M0-6V6M-5.2-3L5.2 3M-5.2 3L5.2-3" stroke="#bfe0f5" stroke-width="4" stroke-linecap="round"/><path d="M0-6V6M-5.2-3L5.2 3M-5.2 3L5.2-3" stroke="#fff" stroke-width="2" stroke-linecap="round"/></g></g>`).join('')
    :fx==='aureola'?`<ellipse class="pulse" cx="100" cy="${eq.hat?4:14}" rx="27" ry="7" fill="none" stroke="#ffd257" stroke-width="5"/>`:'';
+  const seat=SEAT[eq.seat];
   if(FXX[fx]){back=FXX[fx].b;front=eq.hat&&fx.startsWith('nube')?`<g transform="translate(0 -16)">${FXX[fx].f}</g>`:FXX[fx].f}
-  return `<svg class="char ${cls}" viewBox="0 0 200 200" aria-hidden="true"><defs>${grad}${fxDefs}<clipPath id="${u}c"><path d="${BP}"/></clipPath><clipPath id="${u}t"><path d="M0 138Q100 150 200 138V200H0Z"/></clipPath></defs>${back}<ellipse cx="100" cy="184" rx="58" ry="8" fill="#3a2316" opacity=".16"/><g class="bob">${part(cl,'b')}${body}<g clip-path="url(#${u}c)">${part(cl,'c').replace(/TORSOCLIP/g,'url(#'+u+'t)')}${part(nk,'c')}</g>${part(cl,'f')}${part(nk,'f')}<g transform="translate(0 6)"><g class="eyes">${face[0]}</g>${face[1]}${GLS[eq.glasses]||''}</g>${ACC[eq.acc]||''}${HAT[eq.hat]||''}${HOLD[eq.hold]||''}</g>${front}</svg>`;
+  return `<svg class="char ${cls}" viewBox="0 0 200 200" aria-hidden="true"><defs>${grad}${fxDefs}<clipPath id="${u}c"><path d="${BP}"/></clipPath><clipPath id="${u}t"><path d="M0 138Q100 150 200 138V200H0Z"/></clipPath></defs>${back}${sk==='dios'?DIOS_B:''}${seat?seat.b:'<ellipse cx="100" cy="184" rx="58" ry="8" fill="#3a2316" opacity=".16"/>'}<g${seat&&!seat.flat?' transform="translate(20 14) scale(.8)"':''}><g class="bob">${part(cl,'b')}${body}<g clip-path="url(#${u}c)">${part(cl,'c').replace(/TORSOCLIP/g,'url(#'+u+'t)')}${part(nk,'c')}</g>${part(cl,'f')}${part(nk,'f')}<g transform="translate(0 6)"><g class="eyes">${face[0]}</g>${face[1]}${GLS[eq.glasses]||''}</g>${ACC[eq.acc]||''}${HAT[eq.hat]||''}${HOLD[eq.hold]||''}</g></g>${seat?seat.f:''}${sk==='dios'&&!eq.hat?DIOS_HALO:''}${front}</svg>`;
 }
 
 /* ---------- cuartos ---------- */
@@ -1026,15 +1128,16 @@ const ui={theme:(()=>{try{return localStorage.getItem('trono.theme')||'auto'}cat
 let db=null,uid=null,local=false,me=null,ro=false,saving=false,dirty=false;
 const P=id=>id===uid?me:st.players[id];
 const pname=id=>(P(id)&&P(id).name)||'Alguien';
-const has=id=>{const it=I[id];if(!it)return false;if(it.x)return !!(me.owned[id]||me.owned[it.b]);if(it.p===0)return lvl(me.xp).l>=it.l;return !!me.owned[id]};
+const has=id=>{const it=I[id];if(!it)return false;if(it.road)return (me.pv||0)>=it.road;if(it.x)return !!(me.owned[id]||me.owned[it.b]);if(it.p===0)return lvl(me.xp).l>=it.l;return !!me.owned[id]};
 const grp=()=>me&&me.cur?st.groups[me.cur]:null;
 function members(){const g=grp();if(!g)return me?[me]:[];const ids=Object.keys(g.members||{}).filter(k=>g.members[k]);if(!ids.includes(uid))ids.push(uid);return ids.map(P).filter(Boolean)}
 
 function ensureDay(){const d=dKey(),w=wKey();
+  if(me.week&&me.week.k!==w){me.wkHist=me.wkHist||{};const ok=me.week.k;me.wkHist[ok]=me.wk&&me.wk.k===ok?me.wk.xp:(me.wkHist[ok]||0);me.lastWeek={k:ok,v:me.week.visits||0,xp:me.wkHist[ok],seen:0};const hk=Object.keys(me.wkHist).sort();while(hk.length>10)delete me.wkHist[hk.shift()]}
   if(!me.today||me.today.d!==d)me.today={d,v:0,m:{},c:{}};
   if(!me.week||me.week.k!==w)me.week={k:w,m:{},reacts:0,buys:0,visits:0};
   if(!me.wk||me.wk.k!==w)me.wk={k:w,xp:0};
-  me.moHist=me.moHist||{};me.claimed=me.claimed||{};me.titles=me.titles||[];me.dayCounts=me.dayCounts||{};me.hours=me.hours||[0,0,0,0];me.eq.deco=me.eq.deco||{};delete me.eq.hair;for(const k of ['acc','cloth']){const id=me.eq[k];if(id&&I[id]&&I[id].c!==k){me.eq[I[id].c]=id;me.eq[k]=''}}me.owned=me.owned||{};me.ach=me.ach||{};me.groups=me.groups||{}}
+  me.moHist=me.moHist||{};me.claimed=me.claimed||{};me.titles=me.titles||[];me.dayCounts=me.dayCounts||{};me.hours=me.hours||[0,0,0,0];me.eq.deco=me.eq.deco||{};delete me.eq.hair;for(const k of ['acc','cloth']){const id=me.eq[k];if(id&&I[id]&&I[id].c!==k){me.eq[I[id].c]=id;me.eq[k]=''}}me.owned=me.owned||{};me.ach=me.ach||{};me.groups=me.groups||{};if(me.pv==null)me.pv=me.visits||0}
 function checkIn(){const d=dKey();if(me.lastDay===d)return false;const y=dKey(new Date(Date.now()-864e5)),gap=dayDiff(me.lastDay,d);
   if(me.lastDay&&gap>=2){ui.say=gap>=4?'¡Volviste! Pensé que me habías abandonado.':'¡Te extrañé! ¿Dónde estabas?';ui.ov={eyes:'llorones',mouth:'sonrisa'};setTimeout(()=>{ui.ov='';const w=$('.charwrap');if(w&&ui.tab==='home')w.innerHTML=charSVG(me)},4000)}
   me.streak=me.lastDay===y?(me.streak||0)+1:1;me.best=Math.max(me.best||0,me.streak);me.lastDay=d;ensureDay();gain(10,5,true);
@@ -1081,20 +1184,21 @@ const av=p=>charSVG(p||{},'',moodOf(p));
 const daysLeft=()=>{const n=new Date(),e=new Date(n.getFullYear(),n.getMonth()+1,1);return Math.ceil((e-n)/864e5)};
 
 /* ---------- acciones ---------- */
-function doVisit(f){ensureDay();const h=new Date().getHours();me.today.v++;me.visits++;me.week.visits++;
+function doVisit(f){ensureDay();const h=new Date().getHours();me.today.v++;me.visits++;me.week.visits++;if(me.today.v<=3)me.pv=(me.pv||0)+1;const rw=me.today.v<=3?ROAD.find(r=>r.road===me.pv):null;
   me.hours[h<6?0:h<12?1:h<19?2:3]++;if(h<5)me.nightV=(me.nightV||0)+1;else if(h<8)me.earlyV=(me.earlyV||0)+1;
   const dk=dKey();me.dayCounts[dk]=(me.dayCounts[dk]||0)+1;const ks=Object.keys(me.dayCounts).sort();while(ks.length>14)delete me.dayCounts[ks.shift()];
   let xp=0,c=0;if(me.today.v<=3){xp=20;c=8;if(me.today.v===1){xp+=10;c+=4}if(f.desc)xp+=5}
   const v={ts:Date.now(),dur:f.dur||'',type:f.type||'',desc:(f.desc||'').slice(0,80),rate:f.rate||0,xp,c};
   safe(()=>W.visit(v));gain(xp,c);post('visit',{type:v.type,desc:v.desc});
   ui.say=xp?'¡Qué alivio! Me siento renovado.':'Ya cumpliste por hoy. ¡Andá a hacer misiones!';ui.ov={eyes:'felices',mouth:'carcajada'};ui.jump=1;
-  checkAch();save();confetti();toast(xp?`¡Visita registrada! +${c} monedas · +${xp} XP`:'Visita guardada. Hoy ya cobraste las 3 visitas premiadas.',xp?'coin':'');
+  checkAch();save();confetti();if(rw){post('road',{id:rw.id,n:rw.n});setTimeout(()=>sheetUnlock(rw),1300)}toast(xp?`¡Visita registrada! +${c} monedas · +${xp} XP`:'Visita guardada. Hoy ya cobraste las 3 visitas premiadas.',xp?'coin':'');
   setTimeout(()=>{ui.jump=0;ui.ov='';const w=$('.charwrap');if(w&&ui.tab==='home'){w.classList.remove('jump');w.innerHTML=charSVG(me)}},1800)}
 function equip(id){const it=I[id];if(!it||!has(id))return;
   if(it.c==='eyes'||it.c==='mouth'){const fk=faceOf(me.eq);me.eq.eyes=fk[0];me.eq.mouth=fk[1];me.eq[it.c]=id}
   else if(SLOT.includes(it.c))me.eq[it.c]=me.eq[it.c]===id?'':id;else me.eq[it.c]=id;
   me.today.c.custom=1;checkAch();save()}
 function buy(id){const it=I[id];if(has(id)){equip(id);toast(`${it.n} ${isOn(id)?'equipado':'guardado'}`);return}
+  if(it.road)return toast(`Se gana en el Camino del trono, a las ${it.road} visitas premiadas.`);
   if(!evOn(it))return toast('Disponible del 1 al 31 de diciembre.');
   if(it.x)return toast('Este objeto solo se gana en el podio de una temporada.');
   if(lvl(me.xp).l<it.l)return toast(`Se desbloquea en el nivel ${it.l}.`);
@@ -1122,6 +1226,74 @@ async function leaveGroup(code){await safe(()=>W.group(code,{members:{[uid]:0}},
 /* ---------- vistas ---------- */
 const op=(k,d)=>(k in ui.open?ui.open[k]:d)?'open':'';
 const coin=n=>`<span style="white-space:nowrap">${ICON.coin} ${n}</span>`;
+
+/* ---------- camino, duelos, regalos, resumen semanal y colecciones ---------- */
+const rid=p=>p+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+function postTo(k,p){if(!me||ro)return;const d={uid,gs:{...me.groups},ts:Date.now(),k,p,r:{}};safe(()=>W.feed(d))}
+const nextRoad=()=>ROAD.find(r=>(me.pv||0)<r.road);
+function roadCard(){const pv=me.pv||0,n=nextRoad(),prev=[...ROAD].reverse().find(r=>pv>=r.road),base=prev?prev.road:0;
+  return `<button class="roadc" data-a="road"><div class="rtx"><b>Camino del trono</b><small>${n?`${pv} de ${n.road} visitas · próximo: ${E(n.n)}`:'¡Completaste el camino! Sos el Dios del Trono.'}</small><div class="rbar"><i style="width:${n?((pv-base)/(n.road-base)*100).toFixed(1):100}%"></i></div></div><div class="rprev">${itemPrev(n||ROAD[ROAD.length-1],me)}</div></button>`}
+function sheetRoad(){ui.sheet='road';const pv=me.pv||0;
+  openSheet(`<h2>Camino del trono</h2><p class="mute" style="margin:4px 0 14px">Cada visita premiada (hasta 3 por día) suma un paso. Llevás <b>${pv}</b>. Los premios del camino no se compran.</p>
+  <div class="road">${ROAD.map((r,i)=>{const got=pv>=r.road,nx=!got&&(i===0||pv>=ROAD[i-1].road);return `<div class="rstop${got?' got':''}${nx?' next':''}"><div class="rnum">${got?'✓':r.road}</div><button class="rit" data-a="${got?'equip':'clocked'}" data-id="${r.id}" aria-label="${E(r.n)}">${itemPrev(r,me)}</button><div class="rinfo"><b>${E(r.n)}</b><small>${r.road} visitas · ${r.t}${got?(isOn(r.id)?' · Puesto':' · Tocá para ponértelo'):nx?` · te faltan ${r.road-pv}`:''}</small></div></div>`}).join('')}</div>`,true)}
+function sheetUnlock(it){ui.sheet='unlock';confetti(30);
+  openSheet(`<div class="unl">${itemPrev(it,me)}<p class="sublab">Camino del trono · ${it.road} visitas</p><h2>¡Ganaste ${E(it.n)}!</h2><p class="mute">${it.c==='skin'?'Llegaste a la cima. Ahora sos divino.':'Ya está en tu vestidor.'}</p><button class="big" data-a="unlockeq" data-id="${it.id}">Ponérmelo</button></div>`)}
+/* duelos: cada jugador guarda su parte en su propio documento */
+function socialSync(){if(!me||ro)return false;me.duels=me.duels||{};me.gifts=me.gifts||{};me.got=me.got||{};let ch=false;const wk=wKey(),now=Date.now();
+  for(const [id,d] of Object.entries(me.duels)){const o=P(d.vs),od=o&&(o.duels||{})[id];
+    if(d.st==='pend'){if(od&&od.st==='on'){d.st='on';ch=true}else if((od&&od.st==='no')||d.wk!==wk){me.coins+=d.bet;d.st='ref';ch=true}}
+    if(d.st==='on'){if(d.wk===wk){if(d.sc!==me.wk.xp){d.sc=me.wk.xp;ch=true}}
+      else if(od){const a=d.sc||0,b=od.sc||0;d.os=b;d.st=a>b?'won':a<b?'lost':'tie';if(a>b){me.coins+=d.bet*2;postTo('duelwin',{vs:d.vs,bet:d.bet})}else if(a===b)me.coins+=d.bet;ch=true}}
+    if(now-(d.ts||0)>35*864e5&&d.st!=='on'&&d.st!=='pend'){delete me.duels[id];ch=true}}
+  for(const [id,g] of Object.entries(me.gifts))if(now-g.ts>30*864e5){delete me.gifts[id];ch=true}
+  for(const [id,t] of Object.entries(me.got))if(now-t>60*864e5){delete me.got[id];ch=true}
+  for(const p of members()){if(p.uid===uid)continue;for(const [id,g] of Object.entries(p.gifts||{})){if(g.to!==uid||me.got[id])continue;me.got[id]=now;ch=true;
+    if(g.coins)me.coins+=g.coins;if(g.item&&I[g.item])me.owned={...me.owned,[g.item]:1};ui.gq=(ui.gq||[]).concat({from:p.uid,...g})}}
+  return ch}
+const oppXP=d=>{const o=P(d.vs);return o&&o.wk&&o.wk.k===d.wk?o.wk.xp:(o&&(o.duels||{})[d.id]||{}).sc||0};
+function duelCard(){const wk=wKey(),mine=Object.entries(me.duels||{}).map(([id,d])=>({id,...d})).sort((a,b)=>(b.ts||0)-(a.ts||0));
+  const inv=members().filter(p=>p.uid!==uid).flatMap(p=>Object.entries(p.duels||{}).filter(([id,d])=>d.vs===uid&&d.st==='pend'&&d.wk===wk&&!(me.duels||{})[id]).map(([id,d])=>({id,from:p,...d})));
+  const act=mine.filter(d=>d.st==='on'&&d.wk===wk),pend=mine.filter(d=>d.st==='pend'),res=mine.filter(d=>['won','lost','tie'].includes(d.st)&&!d.seen).slice(0,3);
+  const row=d=>{const a=me.wk.xp,b=oppXP(d),t=Math.max(1,a+b);return `<div class="drow"><div class="dvs"><span>Vos <b>${a}</b></span><span><b>${b}</b> ${E(pname(d.vs))}</span></div><div class="dbar"><i style="width:${(a/t*100).toFixed(1)}%"></i></div><small class="mute">${d.bet} monedas cada uno · termina el domingo</small></div>`};
+  return `<div class="card duels"><div class="dh"><h2>Duelos de la semana</h2>${members().length>1?'<button class="btn y" data-a="duelpick">Retar</button>':''}</div>
+   ${inv.map(d=>`<div class="dinv"><span><b>${E(d.from.name)}</b> te retó por <b>${d.bet}</b> monedas</span><div class="row"><button class="btn y" data-a="duelok" data-id="${d.id}">Aceptar</button><button class="btn" data-a="duelno" data-id="${d.id}">No</button></div></div>`).join('')}
+   ${res.map(d=>`<div class="dres ${d.st}"><span>${d.st==='won'?`¡Le ganaste a <b>${E(pname(d.vs))}</b>! +${d.bet*2} monedas`:d.st==='lost'?`<b>${E(pname(d.vs))}</b> te ganó el duelo (${d.sc||0} a ${d.os||0})`:`Empate con <b>${E(pname(d.vs))}</b>: te devolvimos las monedas`}</span><button class="x2" data-a="duelseen" data-id="${d.id}" aria-label="Ocultar">×</button></div>`).join('')}
+   ${act.map(row).join('')}
+   ${pend.map(d=>`<div class="dinv"><span>Esperando a <b>${E(pname(d.vs))}</b> · ${d.bet} monedas</span><button class="btn" data-a="duelcancel" data-id="${d.id}">Cancelar</button></div>`).join('')}
+   ${inv.length||act.length||pend.length||res.length?'':'<p class="mute" style="margin:4px 0 0;font-size:14px">Retá a un amigo: quien junte más XP esta semana se lleva todo lo apostado.</p>'}</div>`}
+function sheetDuelPick(){ui.sheet='duel';const wk=wKey(),busy=new Set(Object.values(me.duels||{}).filter(d=>d.wk===wk&&(d.st==='on'||d.st==='pend')).map(d=>d.vs));
+  const ps=members().filter(p=>p.uid!==uid);
+  openSheet(`<h2>¿A quién retás?</h2><div class="plist">${ps.map(p=>`<button class="lrow" data-a="duelbet" data-id="${E(p.uid)}" ${busy.has(p.uid)?'disabled':''}><div class="mini">${av(p)}</div><div class="who"><b>${E(p.name)}</b><span class="mute">${busy.has(p.uid)?'Ya tienen un duelo esta semana':`Nivel ${lvl(p.xp).l}`}</span></div></button>`).join('')}</div>`)}
+function sheetDuelBet(id){ui.sheet='duel';ui.dvs=id;
+  openSheet(`<h2>Duelo con ${E(pname(id))}</h2><p class="mute" style="margin:4px 0 14px">Gana quien junte más XP de acá al domingo. Si no acepta, te devolvemos las monedas.</p>
+  <div class="bets">${[10,25,50,100].map(b=>`<button class="btn${me.coins>=b?' y':''}" data-a="duelgo" data-v="${b}" ${me.coins<b?'disabled':''}>${ICON.coin}${b}</button>`).join('')}</div>`)}
+function sheetGift(id){ui.sheet='gift';ui.gto=id;const p=P(id)||{},po=p.owned||{};
+  const items=IT.filter(i=>i.p>0&&!i.x&&!i.road&&evOn(i)&&!po[i.id]&&i.p<=me.coins).sort((a,b)=>a.p-b.p).slice(0,30);
+  openSheet(`<h2>Regalo para ${E(p.name||'')}</h2><p class="sublab" style="margin-top:12px">Monedas</p><div class="bets">${[10,25,50,100].map(b=>`<button class="btn${me.coins>=b?' y':''}" data-a="giftgo" data-v="${b}" ${me.coins<b?'disabled':''}>${ICON.coin}${b}</button>`).join('')}</div>
+  <p class="sublab" style="margin-top:18px">Un objeto que no tiene</p>${items.length?`<div class="cgrid">${items.map(i=>`<button class="cit" data-a="giftgo" data-id="${i.id}">${itemPrev(i,p)}<span>${E(i.n)}</span><small>${ICON.coin}${i.p}</small></button>`).join('')}</div>`:'<p class="mute">No te alcanzan las monedas para ningún objeto que le falte.</p>'}`,true)}
+function sheetGot(){const g=ui.gq.shift();if(!g)return;ui.sheet='got';confetti(20);
+  openSheet(`<div class="unl">${g.item&&I[g.item]?itemPrev(I[g.item],me):`<div class="coinbig" style="justify-content:center">${ICON.coin}<b>${g.coins}</b></div>`}<h2>¡${E(pname(g.from))} te hizo un regalo!</h2><p class="mute">${g.item&&I[g.item]?`${E(I[g.item].n)} ya está en tu vestidor.`:`Sumaste ${g.coins} monedas.`}</p><button class="big" data-a="close">¡Gracias!</button></div>`)}
+/* resumen semanal */
+function weekCard(){const lw=me.lastWeek;if(!lw||lw.seen)return '';const mem=members(),sc=p=>p.uid===uid?lw.xp:(p.wk&&p.wk.k===lw.k?p.wk.xp:(p.wkHist||{})[lw.k]||0);
+  const rk=mem.map(p=>({p,v:sc(p)})).sort((a,b)=>b.v-a.v),pos=rk.findIndex(x=>x.p.uid===uid)+1,top=rk[0];
+  ui.wtext=`Mi semana en El Trono 👑💩\n${lw.v} ${lw.v===1?'visita':'visitas'} · ${lw.xp} XP${mem.length>1?` · puesto ${pos} de ${mem.length}`:''}\n${mem.length>1?(pos===1?'¡Gané la semana!':`Ganó ${top.p.name} con ${top.v} XP`):''}`;
+  return `<div class="card wsum"><div class="dh"><h2>Tu semana pasada</h2><button class="x2" data-a="wsumx" aria-label="Cerrar">×</button></div>
+  <div class="wgrid"><div><b>${lw.v}</b><span>visitas</span></div><div><b>${lw.xp}</b><span>XP</span></div><div><b>${mem.length>1?'#'+pos:'—'}</b><span>puesto</span></div></div>
+  ${mem.length>1?`<p class="wline">${pos===1?'👑 ¡Ganaste la semana!':`👑 Ganó <b>${E(top.p.name)}</b> con ${top.v} XP${pos>2?` · te pasó también <b>${E(rk[pos-2].p.name)}</b>`:''}`}</p>`:''}
+  <button class="btn y" data-a="wshare" style="width:100%;margin-top:12px">Compartir</button></div>`}
+/* colecciones */
+const SETS=[
+ {id:'mano',n:'Manos llenas',d:'Todos los objetos en la mano',f:i=>i.c==='hold'&&!i.road&&!i.ev,r:150},
+ {id:'lentes',n:'Cuatro ojos',d:'Todos los anteojos',f:i=>i.c==='glasses'&&!i.road&&!i.x&&!i.ev,r:200},
+ {id:'cuello',n:'Elegancia',d:'Todo lo del cuello',f:i=>i.c==='neck'&&!i.road&&!i.x&&!i.ev,r:200},
+ {id:'efectos',n:'Mago',d:'Todos los efectos',f:i=>i.c==='fx'&&!i.road&&!i.x&&!i.ev,r:250},
+ {id:'gorros',n:'Sombrerero',d:'Todos los sombreros',f:i=>i.c==='hat'&&!i.road&&!i.x&&!i.ev,r:300},
+ {id:'fondos',n:'Trotamundos',d:'Todos los ambientes',f:i=>i.c==='room'&&!i.road&&!i.x&&!i.ev,r:300},
+ {id:'navidad',n:'Espíritu navideño',d:'Todo lo de Navidad',f:i=>i.ev==='navidad',r:200},
+ {id:'camino',n:'Leyenda del trono',d:'Todos los premios del camino',f:i=>!!i.road,r:500}];
+function setsHTML(){me.sets=me.sets||{};return SETS.map(s=>{const its=IT.filter(s.f),n=its.filter(i=>has(i.id)).length,done=n===its.length,cl=me.sets[s.id];
+  return `<div class="setrow"><div class="tx"><b>${s.n}</b><small>${s.d} · ${n}/${its.length}</small><div class="mbar"><i style="width:${(n/its.length*100).toFixed(1)}%"></i></div></div>${cl?'<span class="done">Listo ✓</span>':done?`<button class="btn y" data-a="setclaim" data-id="${s.id}">+${s.r}</button>`:`<span class="rew">${ICON.coin}${s.r}</span>`}</div>`}).join('')}
+
 function vHome(){const L=lvl(me.xp),t=me.today,g=grp();
   const list=ui.mis==='d'?DAILY:WEEKLY,bag=ui.mis==='d'?t.m:me.week.m,ready=[...DAILY.map(m=>!t.m[m.id]&&m.ok()),...WEEKLY.map(m=>!me.week.m[m.id]&&m.ok())].filter(Boolean).length;
   return `${banner()}${installCard('home')}<section>
@@ -1132,6 +1304,7 @@ function vHome(){const L=lvl(me.xp),t=me.today,g=grp();
   <div class="xpl mute">${L.cur} / ${L.need} XP</div></section>
   <div class="stats3"><div><b>${me.visits}</b><span>visitas</span></div><div><b>${ICON.flame} ${me.streak}</b><span>días de racha</span></div><div><b>${Math.min(t.v,3)}/3</b><span>premiadas hoy</span></div></div>
   <button class="big" data-a="visit">REGISTRAR VISITA</button>
+  ${weekCard()}${roadCard()}
   ${me.chest===dKey()?`<div class="chestrow done">${ICON.chest(1)}<div><b>Cofre diario</b><small>Ya lo abriste. Mañana hay otro.</small></div></div>`:`<button class="chestrow" data-a="chest">${ICON.chest(0)}<div><b>Cofre diario</b><small>Más racha, mejor premio</small></div><span class="btn y s">Abrir</span></button>`}
   <details class="acc" data-k="mis" ${op("mis",true)}><summary><h2>Misiones</h2>${ready?`<span class="tag g">${ready} para reclamar</span>`:""}</summary><div class="body">
    <div class="tabs"><button data-a="mis" data-v="d" aria-pressed="${ui.mis==='d'}">Diarias</button><button data-a="mis" data-v="w" aria-pressed="${ui.mis==='w'}">Semanales</button></div>
@@ -1156,7 +1329,7 @@ function vRank(){const mem=members(),wk=wKey(),mk=mKey();
   const past=Object.entries(st.seasons).filter(([,s])=>me.cur&&s.g===me.cur).sort((a,b)=>a[1].k<b[1].k?1:-1);
   const g=grp();
   return `${banner()}<div class="season" style="margin-top:0">${ICON.crown}<div><b>Temporada de ${monthName(mk)}</b><small>${g?E(g.name)+' · ':''}termina en ${daysLeft()} ${daysLeft()===1?'día':'días'}</small></div></div>
-  ${g?'':`<div class="card"><h2>Todavía no tenés grupo</h2><p class="mute" style="margin-bottom:12px">El ranking se juega entre amigos.</p><div class="row"><button class="btn y" data-a="gcreate">Crear grupo</button><button class="btn" data-a="gjoin">Tengo un código</button></div></div>`}
+  ${g?duelCard():''}${g?'':`<div class="card"><h2>Todavía no tenés grupo</h2><p class="mute" style="margin-bottom:12px">El ranking se juega entre amigos.</p><div class="row"><button class="btn y" data-a="gcreate">Crear grupo</button><button class="btn" data-a="gjoin">Tengo un código</button></div></div>`}
   <div class="tabs">${[['w','Semanal'],['m','Mensual'],['a','Histórico']].map(([k,n])=>`<button data-a="rank" data-v="${k}" aria-pressed="${ui.rank===k}">${n}</button>`).join('')}</div>
   <div class="card"><div class="podium">${pod}</div>
    <div style="margin-top:12px">${list.map((x,i)=>`<button class="lrow${x.p.uid===uid?' me':''}" data-a="player" data-id="${E(x.p.uid)}"><span class="n">${i+1}</span><div class="mini">${av(x.p)}</div><div class="who"><b>${E(x.p.name)}${x.p.uid===uid?' (vos)':''}</b><span class="mute">Nivel ${lvl(x.p.xp).l}</span></div><span class="num">${x.v} XP</span></button>`).join('')}</div></div>
@@ -1168,6 +1341,10 @@ function ftext(f){const n=`<b>${E(pname(f.uid))}</b>`,p=f.p||{};
   switch(f.k){case'visit':return `${n} registró una visita${p.type?` <span class="tag">${E(p.type)}</span>`:''}${p.desc?`<q>${E(p.desc)}</q>`:''}`;
    case'level':return `${n} llegó al nivel ${E(p.l)}`;case'item':return `${n} desbloqueó ${E((I[p.id]||{}).n||'un objeto')}`;
    case'ach':return `${n} ganó el logro «${E((AI[p.id]||{}).n||'secreto')}»`;case'join':return `${n} se sumó al grupo`;
+   case'road':return `${n} desbloqueó ${E((I[p.id]||{}).n||'un premio')} en el camino del trono`;
+   case'gift':return `${n} le regaló ${p.item?E((I[p.item]||{}).n||'un objeto'):`${E(p.coins)} monedas`} a <b>${E(pname(p.to))}</b>`;
+   case'duel':return `${n} retó a duelo a <b>${E(pname(p.to))}</b> por ${E(p.bet)} monedas`;
+   case'duelwin':return `${n} le ganó el duelo a <b>${E(pname(p.vs))}</b> y se llevó ${E(p.bet*2)} monedas`;
    case'season':return `${n} ganó la temporada de ${E(monthName(p.k))} y se llevó la corona`;default:return `${n} hizo algo misterioso`}}
 const hhmm=ts=>{const d=new Date(ts);return dKey(d)===dKey()?pad(d.getHours())+':'+pad(d.getMinutes()):ago(ts)};
 function vChat(){const g=grp();if(!g)return `<div class="card"><h2>Chat del grupo</h2><p class="mute" style="margin-bottom:12px">Sumate a un grupo para chatear.</p><div class="row"><button class="btn y" data-a="gcreate">Crear grupo</button><button class="btn" data-a="gjoin">Tengo un código</button></div></div>`;
@@ -1182,7 +1359,7 @@ function vFeed(){const cur=me.cur,items=st.feed.filter(f=>cur?(f.gs||{})[cur]:f.
    :'<p class="mute">Todavía no pasó nada por acá.</p>'}</div>`}`}
 function itemPrev(it,base){if(it.c==='room')return `<div class="prev room">${roomSVG(it.id)}</div>`;
   const eq={...base.eq};if(it.c==='eyes'||it.c==='mouth'){const fk=faceOf(eq);eq.eyes=fk[0];eq.mouth=fk[1]}eq[it.c]=it.id;return `<div class="prev nanim">${charSVG({eq})}</div>`}
-function status(it){const L=lvl(me.xp).l;if(has(it.id))return isOn(it.id)?'Puesto':'Tuyo';if(!evOn(it))return 'Desde el 1/12';if(it.x)return 'Exclusivo de temporada';if(L<it.l)return `Nivel ${it.l}`;return null}
+function status(it){const L=lvl(me.xp).l;if(has(it.id))return isOn(it.id)?'Puesto':'Tuyo';if(it.road)return `Camino: ${it.road} visitas`;if(!evOn(it))return 'Desde el 1/12';if(it.x)return 'Exclusivo de temporada';if(L<it.l)return `Nivel ${it.l}`;return null}
 function vShop(){const cats=[['ev','Navidad'],['hat','Sombreros'],['glasses','Anteojos'],['neck','Cuello'],['cloth','Ropa'],['acc','Accesorios'],['skin','Skins'],['room','Ambientes'],['fx','Efectos']];
   const items=IT.filter(i=>ui.shop==='ev'?i.ev:catOf(i)===ui.shop&&!i.ev);
   const evb=ui.shop==='ev'?`<div class="evb">${ICON.gift}<div><b>${new Date().getMonth()===11?'¡Llegó la Navidad!':'Evento navideño'}</b><small>${new Date().getMonth()===11?`Estos objetos se venden hasta el 31/12. Quedan ${daysLeft()} ${daysLeft()===1?'día':'días'}.`:'Del 1 al 31 de diciembre. Después no vuelven.'}</small></div></div>`:'';
@@ -1210,9 +1387,14 @@ function vMe(){const L=lvl(me.xp),g=grp(),owned=IT.filter(i=>has(i.id));
    <div style="margin:8px 0">${members().map(p=>`<span class="tag">${E(p.name)}</span>`).join('')}</div>`:'<p class="mute">No estás en ningún grupo.</p>'}
    ${Object.keys(me.groups).length>1?`<label class="lab">Cambiar de grupo</label><div class="chips">${Object.keys(me.groups).map(c=>`<button data-a="gswitch" data-v="${E(c)}" aria-pressed="${me.cur===c}">${E((st.groups[c]||{}).name||c)}</button>`).join('')}</div>`:''}
    <div class="row" style="margin-top:12px;flex-wrap:wrap"><button class="btn y" data-a="gcreate">Crear grupo</button><button class="btn" data-a="gjoin">Unirme con código</button>${g?`<button class="btn" data-a="gleave" data-v="${E(g.code)}">Salir</button>`:''}</div></div></details>
+  ${window.PUSH?`<details class="acc" data-k="push" ${op("push",false)}><summary><h2>Notificaciones</h2><span class="meta">${{on:'Activadas',off:'Apagadas',na:'No disponibles',ios:'Instalá la app'}[ui.pushSt||'off']}</span></summary><div class="body">
+   <p class="mute" style="margin:0 0 12px;font-size:14px">Te avisamos cuando alguien del grupo visita el trono, te reta a un duelo, te hace un regalo o gana un premio.</p>
+   ${ui.pushSt==='on'?'<button class="btn" data-a="pushoff">Apagar notificaciones</button>':ui.pushSt==='ios'?'<p class="hint">En iPhone primero agregá El Trono a la pantalla de inicio (Compartir → Agregar a inicio) y abrila desde ahí.</p>':ui.pushSt==='na'?'<p class="hint">Este navegador no permite notificaciones.</p>':'<button class="btn y" data-a="pushon">Activar notificaciones</button>'}
+  </div></details>`:''}
   <details class="acc" data-k="theme" ${op("theme",false)}><summary><h2>Apariencia</h2><span class="meta">${{auto:'Automático',light:'Claro',dark:'Noche'}[ui.theme]||'Automático'}</span></summary><div class="body"><div class="tabs" style="margin:0">${[['auto','Automático'],['light','Claro'],['dark','Noche']].map(([k,n])=>`<button data-a="theme" data-v="${k}" aria-pressed="${ui.theme===k}">${n}</button>`).join('')}</div><p class="mute" style="font-size:13px;margin-top:8px">Automático sigue el modo de tu celular.</p></div></details>
   <details class="acc" data-k="vis" ${op("vis",false)}><summary><h2>Privacidad</h2><span class="meta">${{all:"Todo",ach:"Solo logros",none:"Nada"}[me.vis]}</span></summary><div class="body">${[['all','Todo','Visitas, compras, niveles y logros.'],['ach','Solo logros y compras','Tus visitas no se publican.'],['none','Nada','Seguís apareciendo en el ranking.']].map(([v,n,d])=>`<label class="vis"><input type="radio" name="vis" data-a="vis" data-v="${v}" ${me.vis===v?'checked':''}><span><b>${n}</b><br><span class="mute" style="font-size:14px">${d}</span></span></label>`).join('')}</div></details>
   <details class="acc" data-k="items" ${op("items",false)}><summary><h2>Objetos</h2><span class="meta">${owned.length}/${IT.length}</span></summary><div class="body">${Object.entries(CATS).map(([c,n])=>{const o=owned.filter(i=>catOf(i)===c&&i.p>0);return o.length?`<p style="margin:6px 0"><b>${n}:</b> ${o.map(i=>E(i.n)).join(', ')}</p>`:''}).join('')}</div></details>
+  <details class="acc" data-k="sets" ${op("sets",false)}><summary><h2>Colecciones</h2><span class="meta">${SETS.filter(s=>(me.sets||{})[s.id]).length}/${SETS.length}</span></summary><div class="body">${setsHTML()}</div></details>
   <details class="acc" data-k="hist" ${op("hist",false)}><summary><h2>Historial de visitas</h2><span class="meta">${me.visits||""}</span></summary><div class="body">${st.visits.length?st.visits.slice(0,25).map(v=>`<div class="hist"><div style="flex:1"><b>${E(v.type||'Visita')}</b>${v.dur?` · ${E(v.dur)}`:''}${v.rate?` · ${'★'.repeat(Math.min(5,v.rate|0))}`:''}${v.desc?`<div class="mute" style="font-style:italic">${E(v.desc)}</div>`:''}</div><span class="time" style="white-space:nowrap">${ago(v.ts)}${v.xp?` · +${v.xp} XP`:''}</span></div>`).join(''):'<p class="mute">Todavía no registraste visitas.</p>'}</div></details>
   <button class="btn" style="width:100%;margin-top:4px" data-a="logout">Cerrar sesión</button>
   <p class="hint">${E(ui.email||'')}</p>`}
@@ -1266,6 +1448,7 @@ function closetHTML(){const card=it=>{const h=has(it.id),s=status(it);return `<b
 function sheetPlayer(id){const p=P(id);if(!p)return;ui.sheet='player';const L=lvl(p.xp),T=titles(members()).filter(t=>t[2].uid===id),st2=(p.titles||[]).slice(-4).reverse(),ach=ACH.filter(a=>(p.ach||{})[a.id]);
   const since=p.created?new Date(p.created):null;
   const md=moodOf(p);openSheet(`<div class="pcard"><div class="pscene">${roomSVG((p.eq||{}).room)}<div class="charwrap">${charSVG(p,'',md)}</div></div><h2 style="margin-top:14px">${E(p.char)}</h2><p>@${E(p.name)}${id===uid?' (vos)':''} · Nivel ${L.l}</p>${md?`<span class="mood">${md.t}</span>`:''}</div>
+  ${id!==uid&&grp()&&!ro?`<div class="pbtns"><button class="btn y" data-a="duelbet" data-id="${E(id)}">Retar a duelo</button><button class="btn" data-a="gift" data-id="${E(id)}">Regalar</button></div>`:''}
   <div class="sgrid" style="margin-top:16px"><div><b>${p.xp}</b><span>XP total</span></div><div><b>${p.visits||0}</b><span>visitas</span></div><div><b>${ICON.flame}${p.streak||0}</b><span>racha</span></div><div><b>${p.best||p.streak||0}</b><span>mejor racha</span></div><div><b>${ach.length}/${ACH.length}</b><span>logros</span></div><div><b>${Object.keys(p.owned||{}).length}</b><span>compras</span></div></div>
   <p class="sublab" style="margin-top:18px">Títulos</p>${T.length||st2.length?`<div class="tlist">${T.map(t=>`<div><b>${t[0]}</b><span>${t[1]}</span></div>`).join('')}${st2.map(t=>`<div><b>${E(t.replace(/(\d{4})-(\d{2})/,m=>monthName(m)))}</b><span>Temporada</span></div>`).join('')}</div>`:'<p class="mute" style="font-size:14px">Todavía sin títulos.</p>'}
   ${ach.length?`<p class="sublab" style="margin-top:18px">Logros</p><div class="medals">${ach.map(a=>`<span title="${E(a.n)}">${ICON.medal(a.c,1)}</span>`).join('')}</div>`:''}
@@ -1303,22 +1486,36 @@ function render(){const app=$('#app');
   if(ui.auth){$('#top').hidden=true;$('#nav').hidden=true;if(!$('#authf'))app.innerHTML=vAuth();return}
   if(!st.ready&&!local){$('#lc').innerHTML=charSVG({eq:{skin:'choco',face:'dormido'}});return}
   if(!me){$('#top').hidden=true;$('#nav').hidden=true;if(ui.mode!=='onb'){ui.mode='onb';app.innerHTML=vOnb()}return}
-  ui.mode='app';const L=lvl(me.xp);
+  ui.mode='app';if(socialSync()){save();return}const L=lvl(me.xp);
   $('#top').hidden=false;$('#top').innerHTML=`<div class="logo">${ICON.crown}<span>El Trono</span></div><span class="pill">${ICON.coin}${me.coins}</span><span class="pill">${ICON.flame}${me.streak}</span><span class="pill" style="padding-left:11px">Nv ${L.l}</span>`;
   $('#nav').hidden=false;$('#nav').innerHTML=TABS.map(([k,n])=>`<button data-a="tab" data-v="${k}" ${ui.tab===k?'aria-current="page"':''}>${ICON[k]}<span>${n}</span></button>`).join('');
   const ae=document.activeElement,keep=ae&&ae.id&&app.contains(ae)?{id:ae.id,v:ae.value,s:ae.selectionStart}:null,cl=$('#chatlist'),bottom=!cl||cl.scrollHeight-cl.scrollTop-cl.clientHeight<60,ctop=cl&&cl.scrollTop;
   keepChips(app,()=>{app.innerHTML=({home:vHome,rank:vRank,feed:vFeed,shop:vShop,me:vMe}[ui.tab]||vHome)()});
   if(keep){const el=document.getElementById(keep.id);if(el){if(keep.v!=null)el.value=keep.v;el.focus({preventScroll:true});try{el.setSelectionRange(keep.s,keep.s)}catch(e){}}}
   const nl=$('#chatlist');if(nl)nl.scrollTop=bottom?nl.scrollHeight:ctop;
-  if(ui.sheet==='closet'&&!$('#sheet').hidden){const y=$('.panel').scrollTop,v=$('#cname')&&$('#cname').value;keepChips($('#sheetin'),()=>{$('#sheetin').innerHTML=closetHTML()});if(v!=null&&$('#cname'))$('#cname').value=v;$('.panel').scrollTop=y}}
+  if(ui.sheet==='closet'&&!$('#sheet').hidden){const y=$('.panel').scrollTop,v=$('#cname')&&$('#cname').value;keepChips($('#sheetin'),()=>{$('#sheetin').innerHTML=closetHTML()});if(v!=null&&$('#cname'))$('#cname').value=v;$('.panel').scrollTop=y}
+  if(ui.gq&&ui.gq.length&&$('#sheet').hidden)setTimeout(()=>{if($('#sheet').hidden)sheetGot()},500)}
 function go(tab){const changed=ui.tab!==tab;ui.tab=tab;if(tab==='shop'&&!me.today.c.shop){me.today.c.shop=1;save()}else render();scrollTo(0,0);$('#screen').scrollTop=0;if(changed){const a=$('#app');a.classList.remove('viewin');void a.offsetWidth;a.classList.add('viewin')}}
 
 /* ---------- eventos ---------- */
 const A={
- tab:d=>go(d.v),close:closeSheet,closet:sheetCloset,chest:sheetChest,chestopen:openChest,player:d=>sheetPlayer(d.id),visit:sheetVisit,
+ tab:d=>go(d.v),close:closeSheet,
+ pushon:async()=>{const r=await window.pushOn();ui.pushSt=r;render();toast(r==='on'?'¡Listo! Te vamos a avisar.':r==='denied'?'Bloqueaste las notificaciones: activalas desde los ajustes del teléfono.':'No se pudieron activar las notificaciones.')},pushoff:async()=>{await window.pushOff();ui.pushSt='off';render()},
+ road:sheetRoad,unlockeq:d=>{if(!isOn(d.id))equip(d.id);closeSheet()},
+ duelpick:sheetDuelPick,duelbet:d=>sheetDuelBet(d.id),
+ duelgo:d=>{const b=+d.v,vs=ui.dvs;if(me.coins<b)return toast('No te alcanzan las monedas.');const id=rid('d');me.duels={...(me.duels||{}),[id]:{vs,bet:b,wk:wKey(),role:'a',st:'pend',sc:me.wk.xp,ts:Date.now()}};me.coins-=b;postTo('duel',{to:vs,bet:b});closeSheet();save();toast(`Le mandaste el reto a ${pname(vs)}.`)},
+ duelok:d=>{const wk=wKey(),inv=members().map(p=>[p,(p.duels||{})[d.id]]).find(([p,x])=>x&&x.vs===uid);if(!inv)return;const [p,x]=inv;if(me.coins<x.bet)return toast(`Necesitás ${x.bet} monedas para aceptar.`);me.coins-=x.bet;me.duels={...(me.duels||{}),[d.id]:{vs:p.uid,bet:x.bet,wk,role:'b',st:'on',sc:me.wk.xp,ts:Date.now()}};save();toast('¡Duelo aceptado! Que gane el mejor.')},
+ duelno:d=>{const inv=members().map(p=>[p,(p.duels||{})[d.id]]).find(([p,x])=>x&&x.vs===uid);if(!inv)return;me.duels={...(me.duels||{}),[d.id]:{vs:inv[0].uid,bet:inv[1].bet,wk:wKey(),role:'b',st:'no',ts:Date.now()}};save()},
+ duelcancel:d=>{const x=(me.duels||{})[d.id];if(!x||x.st!=='pend')return;me.coins+=x.bet;x.st='ref';save()},
+ duelseen:d=>{const x=(me.duels||{})[d.id];if(x){x.seen=1;save()}},
+ gift:d=>sheetGift(d.id),
+ giftgo:d=>{const to=ui.gto,it=d.id&&I[d.id],amt=it?it.p:+d.v;if(me.coins<amt)return toast('No te alcanzan las monedas.');const id=rid('g');me.gifts={...(me.gifts||{}),[id]:it?{to,item:it.id,ts:Date.now()}:{to,coins:amt,ts:Date.now()}};me.coins-=amt;postTo('gift',it?{to,item:it.id,n:it.n}:{to,coins:amt});closeSheet();save();toast(`¡Regalo enviado a ${pname(to)}!`)},
+ wsumx:()=>{if(me.lastWeek){me.lastWeek.seen=1;save()}},
+ wshare:async()=>{const t=ui.wtext||'';try{if(navigator.share){await navigator.share({text:t});return}}catch(e){if(e&&e.name==='AbortError')return}const a=document.createElement('a');a.href='https://wa.me/?text='+encodeURIComponent(t);a.target='_blank';a.rel='noopener';document.body.appendChild(a);a.click();a.remove()},
+ setclaim:d=>{const s=SETS.find(x=>x.id===d.id);if(!s||(me.sets||{})[s.id])return;if(!IT.filter(s.f).every(i=>has(i.id)))return;me.sets={...(me.sets||{}),[s.id]:Date.now()};me.coins+=s.r;me.titles=[...(me.titles||[]),s.n];confetti();toast(`Colección completa: ${s.n} · +${s.r} monedas`,'coin');save()},closet:sheetCloset,chest:sheetChest,chestopen:openChest,player:d=>sheetPlayer(d.id),visit:sheetVisit,
  mis:d=>{ui.mis=d.v;render()},rank:d=>{ui.rank=d.v;render()},shopcat:d=>{ui.shop=d.v;render()},
  ccat:d=>{ui.closet=d.v;keepChips($('#sheetin'),()=>{$('#sheetin').innerHTML=closetHTML()})},
- equip:d=>{equip(d.id)},clocked:d=>{const it=I[d.id];toast(!evOn(it)?'Evento navideño: disponible del 1 al 31 de diciembre.':it.x?'Se gana en el podio de una temporada.':lvl(me.xp).l<it.l?`Se desbloquea en el nivel ${it.l}${it.p?` y cuesta ${it.p} monedas`:''}.`:`Lo conseguís en la tienda por ${it.p} monedas.`)},
+ equip:d=>{equip(d.id)},clocked:d=>{const it=I[d.id];if(it.road)return toast(`Se gana en el Camino del trono, a las ${it.road} visitas premiadas.`);toast(!evOn(it)?'Evento navideño: disponible del 1 al 31 de diciembre.':it.x?'Se gana en el podio de una temporada.':lvl(me.xp).l<it.l?`Se desbloquea en el nivel ${it.l}${it.p?` y cuesta ${it.p} monedas`:''}.`:`Lo conseguís en la tienda por ${it.p} monedas.`)},
  rename:()=>{const v=$('#cname').value.trim().slice(0,18);if(v&&v!==me.char){me.char=v;me.today.c.custom=1;save()}closeSheet();toast('Cambios guardados')},
  buy:d=>buy(d.id),claim:d=>claim(d.id,!!d.w),react:d=>react(d.id,d.k),
  vchip:(d,b)=>{const on=b.getAttribute('aria-pressed')==='true';b.parentNode.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed','false'));if(!on){b.setAttribute('aria-pressed','true');ui.vf[d.g]=d.v}else ui.vf[d.g]=''},
@@ -1417,7 +1614,17 @@ function makeDB(sb){const L={};const ping=col=>{(L[col]||new Set()).forEach(f=>f
   const refreshAll=()=>Object.values(L).forEach(set=>set.forEach(f=>f()));
   return {doc,collection,refreshAll}}
 let sessionStarted=false;
-function startSession(session){if(sessionStarted)return;sessionStarted=true;ui.auth=false;uid=session.user.id;ui.email=session.user.email||'';db=makeDB(SB);
+/* ---------- notificaciones push ---------- */
+const VAPID_PUB='BC1yDZ5PH-0yMOgW3MAacraa1bqSFCOdQzsLhJcHtJi1t00KRm0hJNz9xZerbH0hQuD-gXqUZy6FT5metr3VZgQ',PUSH_READY=false;
+window.PUSH=PUSH_READY;
+const b64u=s=>{const p='='.repeat((4-s.length%4)%4),b=atob((s+p).replace(/-/g,'+').replace(/_/g,'/'));return Uint8Array.from([...b].map(c=>c.charCodeAt(0)))};
+async function pushState(){try{if(!('serviceWorker' in navigator)||!('PushManager' in window)||!('Notification' in window))return isIOS?'ios':'na';
+  const r=await navigator.serviceWorker.ready,s=await r.pushManager.getSubscription();return s&&Notification.permission==='granted'?'on':'off'}catch(e){return 'na'}}
+window.pushOn=async()=>{try{const st=await pushState();if(st==='na'||st==='ios')return st;const p=await Notification.requestPermission();if(p!=='granted')return 'denied';
+  const r=await navigator.serviceWorker.ready;let s=await r.pushManager.getSubscription();if(!s)s=await r.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64u(VAPID_PUB)});
+  const {error}=await SB.from('push_subs').upsert({endpoint:s.endpoint,uid,sub:s.toJSON()});if(error)throw error;return 'on'}catch(e){console.warn(e);return 'err'}};
+window.pushOff=async()=>{try{const r=await navigator.serviceWorker.ready,s=await r.pushManager.getSubscription();if(s){await SB.from('push_subs').delete().eq('endpoint',s.endpoint);await s.unsubscribe()}}catch(e){}};
+function startSession(session){if(sessionStarted)return;sessionStarted=true;ui.auth=false;uid=session.user.id;if(PUSH_READY)setTimeout(()=>pushState().then(s=>{ui.pushSt=s;render()}),800);ui.email=session.user.email||'';db=makeDB(SB);
   $('#app').innerHTML='<div class="load"><div><div class="c" id="lc"></div><h2>Preparando el trono…</h2></div></div>';render();
   const timer=setTimeout(()=>{if(!st.ready){st.err='Todavía no pudimos conectar con el servidor. Seguimos intentando…';$('#app').insertAdjacentHTML('beforeend',`<p class="hint">${E(st.err)}</p>`)}},10000);
   subscribe(timer)}
