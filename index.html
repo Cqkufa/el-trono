@@ -355,6 +355,7 @@ input:focus{border-color:var(--lav);outline:0}
 /* camino, duelos, regalos, resumen, colecciones */
 .big[data-a=visit]{margin-bottom:22px}
 .panel{overscroll-behavior:none}
+.pushic{font-size:56px;line-height:1;margin:6px 0 8px}
 
 .roadc{display:flex;align-items:center;gap:12px;width:100%;border:0;text-align:left;background:linear-gradient(120deg,light-dark(#fff3c4,#3a2a14),light-dark(#ffe08a,#4d3714));color:var(--ink);border-radius:var(--r);padding:12px 12px 12px 16px;margin:0 0 var(--g);box-shadow:var(--sh)}
 .roadc .rtx{flex:1;min-width:0}.roadc b{display:block;font-size:16px}.roadc small{display:block;font-size:13px;opacity:.75;margin-top:1px}
@@ -1503,6 +1504,7 @@ function go(tab){const changed=ui.tab!==tab;ui.tab=tab;if(tab==='shop'&&!me.toda
 /* ---------- eventos ---------- */
 const A={
  tab:d=>go(d.v),close:closeSheet,
+ pushask:async()=>{const pr=window.pushOn();closeSheet();const r=await pr;ui.pushSt=r==='on'?'on':ui.pushSt;render();toast(r==='on'?'¡Listo! Te vamos a avisar.':r==='denied'?'Sin notificaciones. Si cambiás de idea: Perfil → Notificaciones.':'No se pudieron activar las notificaciones.')},
  pushon:async()=>{const r=await window.pushOn();ui.pushSt=r;render();toast(r==='on'?'¡Listo! Te vamos a avisar.':r==='denied'?'Bloqueaste las notificaciones: activalas desde los ajustes del teléfono.':'No se pudieron activar las notificaciones.')},pushoff:async()=>{await window.pushOff();ui.pushSt='off';render()},
  road:sheetRoad,unlockeq:d=>{if(!isOn(d.id))equip(d.id);closeSheet()},
  duelpick:sheetDuelPick,duelbet:d=>sheetDuelBet(d.id),
@@ -1623,11 +1625,15 @@ window.PUSH=PUSH_READY;
 const b64u=s=>{const p='='.repeat((4-s.length%4)%4),b=atob((s+p).replace(/-/g,'+').replace(/_/g,'/'));return Uint8Array.from([...b].map(c=>c.charCodeAt(0)))};
 async function pushState(){try{if(!('serviceWorker' in navigator)||!('PushManager' in window)||!('Notification' in window))return isIOS?'ios':'na';
   const r=await navigator.serviceWorker.ready,s=await r.pushManager.getSubscription();return s&&Notification.permission==='granted'?'on':'off'}catch(e){return 'na'}}
-window.pushOn=async()=>{try{const st=await pushState();if(st==='na'||st==='ios')return st;const p=await Notification.requestPermission();if(p!=='granted')return 'denied';
+window.pushOn=async()=>{try{if(!('Notification' in window)||!('PushManager' in window)||!('serviceWorker' in navigator))return isIOS?'ios':'na';const p=await Notification.requestPermission();if(p!=='granted')return 'denied';
   const r=await navigator.serviceWorker.ready;let s=await r.pushManager.getSubscription();if(!s)s=await r.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64u(VAPID_PUB)});
   const {error}=await SB.from('push_subs').upsert({endpoint:s.endpoint,uid,sub:s.toJSON()});if(error)throw error;return 'on'}catch(e){console.warn(e);return 'err'}};
+function maybeAskPush(){try{if(!PUSH_READY||ui.pushSt!=='off'||Notification.permission!=='default')return;let t=0;try{t=+localStorage.getItem('trono.pushAsk')||0}catch(e){}if(Date.now()-t<7*864e5)return;
+  if(!me||ui.mode!=='app'||!$('#sheet').hidden){setTimeout(maybeAskPush,4000);return}
+  try{localStorage.setItem('trono.pushAsk',String(Date.now()))}catch(e){}ui.sheet='pushask';
+  openSheet(`<div class="unl"><div class="pushic">🔔</div><h2>¿Te avisamos?</h2><p class="mute">Enterate cuando alguien del grupo visita el trono, te reta a un duelo o te hace un regalo.</p><button class="big" data-a="pushask">Activar notificaciones</button><button class="btn" data-a="close" style="width:100%;margin-top:10px">Ahora no</button><p class="hint">Después las podés apagar en Perfil → Notificaciones.</p></div>`)}catch(e){}}
 window.pushOff=async()=>{try{const r=await navigator.serviceWorker.ready,s=await r.pushManager.getSubscription();if(s){await SB.from('push_subs').delete().eq('endpoint',s.endpoint);await s.unsubscribe()}}catch(e){}};
-function startSession(session){if(sessionStarted)return;sessionStarted=true;ui.auth=false;uid=session.user.id;if(PUSH_READY)setTimeout(()=>pushState().then(s=>{ui.pushSt=s;render()}),800);ui.email=session.user.email||'';db=makeDB(SB);
+function startSession(session){if(sessionStarted)return;sessionStarted=true;ui.auth=false;uid=session.user.id;if(PUSH_READY)setTimeout(()=>pushState().then(s=>{ui.pushSt=s;render();setTimeout(maybeAskPush,2500)}),800);ui.email=session.user.email||'';db=makeDB(SB);
   $('#app').innerHTML='<div class="load"><div><div class="c" id="lc"></div><h2>Preparando el trono…</h2></div></div>';render();
   const timer=setTimeout(()=>{if(!st.ready){st.err='Todavía no pudimos conectar con el servidor. Seguimos intentando…';$('#app').insertAdjacentHTML('beforeend',`<p class="hint">${E(st.err)}</p>`)}},10000);
   subscribe(timer)}
